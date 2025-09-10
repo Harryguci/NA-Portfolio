@@ -1,3 +1,33 @@
+html,
+body {
+  scroll-behavior: smooth;
+}
+.text-primary {
+  color: #464021;
+}
+.bg-primary {
+  background: #fffcd1;
+  background: -webkit-linear-gradient(
+    180deg,
+    rgba(255, 252, 209, 1) 0%,
+    rgba(255, 253, 255, 1) 100%,
+    rgba(255, 253, 255, 1) 100%
+  );
+  background: -moz-linear-gradient(
+    180deg,
+    rgba(255, 252, 209, 1) 0%,
+    rgba(255, 253, 255, 1) 100%,
+    rgba(255, 253, 255, 1) 100%
+  );
+  background: linear-gradient(
+    180deg,
+    rgba(255, 252, 209, 1) 0%,
+    rgba(255, 253, 255, 1) 100%,
+    rgba(255, 253, 255, 1) 100%
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#FFFCD1", endColorstr="#FFFDFF", GradientType=0);
+}
+
 .circle-btn {
   width: 50px;
   height: 50px;

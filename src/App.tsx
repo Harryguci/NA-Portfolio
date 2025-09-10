@@ -10,16 +10,18 @@ const [
   vid2Video,
   gif3Video,
   vid4Video,
+  image4,
 ] = assertsJson.asserts as string[];
 import Loading from "./components/Loading";
 import image3 from "./assets/3.png";
-import image4 from "./assets/4.png";
+// import image4 from "./assets/4_optimize.jpg";
 import image5 from "./assets/5.png";
 import image6 from "./assets/6.png";
 import image7 from "./assets/7.png";
 import image8 from "./assets/8.png";
 import image9 from "./assets/9.png";
 import image11 from "./assets/11.png";
+import image12 from "./assets/12.jpg";
 import FloatNav from "./components/FloatNav";
 
 function App() {
@@ -85,21 +87,21 @@ function App() {
         </div>
       )}
       <div className="flex flex-col max-w-[2500px] mx-auto">
-        <div className="text-white">
+        <div id="hero" className="text-white">
           <IntervalVideo
             src={biaVideo}
             interval={12000} // 5 seconds interval
             className="w-full h-auto"
           />
         </div>
-        <div className="bg-white">
+        <div id="resume" className="bg-white">
           <IntervalVideo
             src={resume1Video}
             interval={5000} // 5 seconds interval
             className="w-full h-auto"
           />
         </div>
-        <div className="bg-white w-full">
+        <div id="comem-lab" className="bg-white w-full">
           <img src={image3} alt="logo" className="w-full h-auto object-cover" />
           <p className="text-right text-sm px-5 pt-0 pb-10 pr-[12px] md:pr-[50px] pl-[12px] lg:pr-[100px] lg:pl-[100px] md:text-3xl">
             View more on my behance:{" "}
@@ -112,7 +114,7 @@ function App() {
             </a>
           </p>
         </div>
-        <div className="bg-white mb-[30px]">
+        <div id="comem-lab-2" className="bg-white mb-[30px]">
           <div className="mx-auto h-auto relative w-full">
             <img
               src="/video/hoa_1.png"
@@ -204,32 +206,45 @@ function App() {
             </div>
           </div>
         </div>
-        <div className="bg-white">
+        <div id="viet-education" className="bg-white">
           <img src={image4} alt="logo" className="w-full h-auto object-cover" />
         </div>
-        <div className="bg-white">
+        <div id="social-media-posts-1" className="bg-white">
           <img src={image5} alt="logo" className="w-full h-auto object-cover" />
         </div>
-        <div className="bg-white">
+        <div id="social-media-posts-2" className="bg-white">
           <img src={image6} alt="logo" className="w-full h-auto object-cover" />
         </div>
-        <div className="bg-white">
+        <div id="kidulties" className="bg-white">
           <img src={image7} alt="logo" className="w-full h-auto object-cover" />
         </div>
-        <div className="bg-white">
+        <div id="nungning-garden" className="bg-white">
           <img src={image8} alt="logo" className="w-full h-auto object-cover" />
         </div>
-        <div className="bg-white">
+        <div id="others" className="bg-white">
           <img src={image9} alt="logo" className="w-full h-auto object-cover" />
         </div>
-        <div className="bg-white px-[24px] sm:px-[32px] lg:px-[100px] xl:px-[140px]">
+        <div
+          id="others-1"
+          className="bg-white px-[24px] sm:px-[32px] lg:px-[100px] xl:px-[140px]"
+        >
           <img
             src={image10}
             alt="logo"
             className="w-full h-auto object-cover rounded-[15px] md:rounded-[40px]"
           />
         </div>
-        <div className="bg-white">
+        <div
+          id="others-2"
+          className="bg-white px-[24px] sm:px-[32px] lg:px-[100px] xl:px-[140px]"
+        >
+          <img
+            src={image12}
+            alt="logo"
+            className="w-full h-auto object-cover rounded-[15px] md:rounded-[40px]"
+          />
+        </div>
+        <div id="footer" className="bg-white">
           <img
             src={image11}
             alt="logo"

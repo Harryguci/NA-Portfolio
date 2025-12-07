@@ -99,7 +99,7 @@ const FloatNav = () => {
               }}
               className={`block px-3 py-2 rounded-lg text-center font-medium transition-all duration-200 text-[10px] ${
                 section.type === "current"
-                  ? "text-primary shadow-lg bg-primary"
+                  ? "text-primary shadow-lg bg-primary border-primary"
                   : "text-[#464021] bg-gray-100 hover:bg-gray-200"
               }`}
             >

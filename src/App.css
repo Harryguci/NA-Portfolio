@@ -2,6 +2,9 @@ html,
 body {
   scroll-behavior: smooth;
 }
+.border-primary {
+  border: 1px solid #464021;
+}
 .text-primary {
   color: #464021;
 }

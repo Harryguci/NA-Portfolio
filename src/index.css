@@ -9,9 +9,11 @@
 html {
   font-family: "Be Vietnam Pro", sans-serif;
   overflow-x: hidden;
+  width: 100vw;
 }
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;

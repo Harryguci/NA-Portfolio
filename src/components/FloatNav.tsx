@@ -6,6 +6,7 @@ const FloatNav = () => {
   const sections = [
     { id: "hero", label: "Giới thiệu" },
     { id: "resume", label: "Hồ sơ" },
+    { id: "labeille-global", label: "L'Abeille Global" },
     { id: "comem-lab", label: "Cỏ mềm" },
     { id: "viet-education", label: "Vietis Education" },
     { id: "social-media-posts-1", label: "Social Media Posts" },
@@ -74,14 +75,19 @@ const FloatNav = () => {
   };
 
   return (
-    <div
+    <aside
       className="fixed flex flex-col right-[15px] lg:right-[30px]"
       style={{
         zIndex: 200,
         bottom: "10vh",
       }}
+      title="Portfolio Navigation"
+      aria-label="Portfolio section navigation"
     >
-      <nav className="flex flex-col gap-2 w-[100px]">
+      <nav
+        className="flex flex-col gap-2 w-[100px]"
+        aria-label="Main navigation"
+      >
         {getVisibleSections().map((section) => (
           <div
             key={section.id}
@@ -97,6 +103,8 @@ const FloatNav = () => {
                 e.preventDefault();
                 handleNavClick(section.id);
               }}
+              title={`Navigate to ${section.label} section`}
+              aria-label={`Go to ${section.label} section`}
               className={`block px-3 py-2 rounded-lg text-center font-medium transition-all duration-200 text-[10px] ${
                 section.type === "current"
                   ? "text-primary shadow-lg bg-primary border-primary"
@@ -110,7 +118,8 @@ const FloatNav = () => {
       </nav>
       <button
         type="button"
-        title="Back to top"
+        title="Back to top - Scroll to top of page"
+        aria-label="Scroll to top of page"
         className="mx-auto circle-btn flex justify-center items-center shadow mt-4"
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
       >
@@ -120,11 +129,13 @@ const FloatNav = () => {
           viewBox="0 -960 960 960"
           width="32px"
           fill="#464021"
+          aria-hidden="true"
         >
+          <title>Up arrow icon</title>
           <path d="M480-528 296-344l-56-56 240-240 240 240-56 56-184-184Z" />
         </svg>
       </button>
-    </div>
+    </aside>
   );
 };
 

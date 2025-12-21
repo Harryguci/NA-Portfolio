@@ -5,13 +5,15 @@ interface IntervalVideoProps {
   interval: number; // interval in milliseconds
   className?: string;
   autoPlay?: boolean;
+  title?: string;
 }
 
 const IntervalVideo: React.FC<IntervalVideoProps> = ({ 
   src, 
   interval, 
   className = '', 
-  autoPlay = true 
+  autoPlay = true,
+  title
 }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [_a, setIsPlaying] = useState(false);
@@ -78,6 +80,8 @@ const IntervalVideo: React.FC<IntervalVideoProps> = ({
         muted
         playsInline             // important for iOS Safari autoplay
         loop={true}
+        title={title}
+        aria-label={title}
       >
         <source src={src} type="video/mp4" />
         Your browser does not support the video tag.

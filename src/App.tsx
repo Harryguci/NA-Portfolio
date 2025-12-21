@@ -164,7 +164,7 @@ function App() {
           />
 
           {/* Motion graphic frames : 3 columns, content of frame is a video  */}
-          <div className="mt-[30px] sm:mt-[50px] grid grid-cols-3 gap-4 px-[24px] sm:px-[50px] lg:px-[50px] mb-10">
+          <div className="mt-[30px] sm:mt-[50px] grid grid-cols-3 gap-[5px] md:gap-4 px-[24px] sm:px-[50px] lg:px-[60px] mb-10">
             <div
               className="relative w-full overflow-hidden"
               style={{ aspectRatio: "547 / 672" }}
@@ -240,13 +240,13 @@ function App() {
               />
 
               {/* Text and button overlay - positioned at center-right */}
-              <div className="absolute inset-0 flex items-center justify-start pl-2 lg:pl-[24px]">
+              <div className="absolute inset-0 flex items-center justify-start pl-0 lg:pl-[24px]">
                 <div className="flex flex-col items-center gap-4 md:gap-6">
                   {/* Title text from image */}
                   <img
                     src={labeilleLandingPageTextBtn}
                     alt="Landing page - Danton Biotin"
-                    className="w-[120px] md:w-[180px] lg:w-[300px] h-auto"
+                    className="w-[100px] md:w-[180px] lg:w-[300px] h-auto"
                   />
 
                   {/* Interactive button */}
@@ -255,7 +255,7 @@ function App() {
                     showArrow={true}
                     title="Open L'Abeille Global landing page"
                     ariaLabel="Open L'Abeille Global landing page on Behance"
-                    className="text-[9px] md:text-[14px] lg:text-[20px] px-[9px] md:px-[10px] lg:px-10 py-[5px] md:py-[10px] lg:py-5"
+                    className="text-[8px] md:text-base lg:text-[20px] px-[7px] md:px-8 lg:px-10 py-[5px] md:py-4 lg:py-5"
                   >
                     Open landing page
                   </PrimaryButton>
@@ -275,7 +275,7 @@ function App() {
             title="Cỏ mềm Project"
             className="w-full h-auto object-cover"
           />
-          <p className="text-right text-sm px-5 pt-0 pb-10 pr-[12px] md:pr-[50px] pl-[12px] md:text-3xl">
+          {/* <p className="text-right text-sm px-5 pt-0 pb-10 pr-[12px] md:pr-[50px] pl-[12px] md:text-3xl">
             View more on my behance:{" "}
             <a
               href="https://www.behance.net/phanthngcanh/projects"
@@ -286,7 +286,7 @@ function App() {
             >
               https://www.behance.net/phanthngcanh/projects
             </a>
-          </p>
+          </p> */}
         </section>
         <section
           id="comem-lab-2"
@@ -401,7 +401,7 @@ function App() {
           />
           {/* Vietis Landing page navigation hero: */}
           <div className="px-[24px] sm:px-[50px] lg:px-[50px]">
-            <div className="w-full relative mt-10 mb-10">
+            <div className="w-full relative mt-2 mb-3 md:mt-10 md:mb-10">
               {/* Background image */}
               <img
                 src={vietisLandingPageNavigation}
@@ -412,12 +412,12 @@ function App() {
 
               {/* Text and button overlay - positioned at center-left */}
               <div className="absolute inset-0 flex items-center justify-start">
-                <div className="flex flex-col items-center gap-4 md:gap-6 pl-2 lg:pl-[24px]">
+                <div className="flex flex-col items-center gap-4 md:gap-6 lg:pl-[24px]">
                   {/* Title text from image */}
                   <img
                     src={vietisLandingPageTextBtn}
                     alt="Landing page - Vietis Education"
-                    className="w-[120px] md:w-[300px] lg:w-[300px] h-auto"
+                    className="w-[100px] md:w-[180px] lg:w-[300px] h-auto"
                   />
 
                   {/* Interactive button */}
@@ -426,7 +426,7 @@ function App() {
                     showArrow={true}
                     title="Open Vietis Education landing page"
                     ariaLabel="Open Vietis Education landing page on Behance"
-                    className="text-[9px] md:text-base lg:text-[20px] px-[9px] md:px-8 lg:px-10 py-[5px] md:py-4 lg:py-5 bg-secondary-reverse"
+                    className="text-[8px] md:text-base lg:text-[20px] px-[7px] md:px-8 lg:px-10 py-[5px] md:py-4 lg:py-5 bg-secondary-reverse"
                   >
                     Open landing page
                   </PrimaryButton>
@@ -453,18 +453,6 @@ function App() {
             className="w-full h-auto object-cover mt-5"
           />
         </section>
-        {/* <section
-          id="social-media-posts-2"
-          className="bg-white"
-          title="Social Media Posts - Part 2"
-        >
-          <img
-            src={image6}
-            alt="Social media posts design portfolio and creative work part 2"
-            title="Social Media Posts Portfolio Part 2"
-            className="w-full h-auto object-cover"
-          />
-        </section> */}
         <section id="kidulties" className="bg-white" title="Kidulties Project">
           <img
             src={image7}

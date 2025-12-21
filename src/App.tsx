@@ -14,11 +14,14 @@ const [
   motionVid1,
   motionVid2,
   motionVid3,
+  labeileSection,
 ] = assertsJson.asserts as string[];
 import Loading from "./components/Loading";
 import resume from "./assets/resume.png";
 import image3 from "./assets/3.png";
-import image3p2 from "./assets/3p2.png";
+// import image3p2 from "./assets/3p2.png";
+// import motionGraphicTitle from "./assets/motion_graphic_title.png";
+import labeilleLandingPageNavigation from "./assets/landing_labelle_bg.png";
 import image5 from "./assets/5.png";
 import image5p2 from "./assets/5_p2.png";
 // import image6 from "./assets/6.png";
@@ -28,7 +31,12 @@ import image9 from "./assets/9.png";
 import image11 from "./assets/11.png";
 import image12 from "./assets/12.jpg";
 import motionGraphicFrame from "./assets/motion_graphic_frame.png";
+import motionGraphicFrameSquare from "./assets/motion_graphic_frame_square.png";
 import FloatNav from "./components/FloatNav";
+import PrimaryButton from "./components/PrimaryButton";
+import labeilleLandingPageTextBtn from "./assets/landing_labelle_text-btn.png";
+import vietisLandingPageNavigation from "./assets/landing_vietis_bg.png";
+import vietisLandingPageTextBtn from "./assets/landing_vietis_text-btn.png";
 
 function App() {
   const [assetsLoaded, setAssetsLoaded] = useState(false);
@@ -80,8 +88,38 @@ function App() {
     observer.observe(document.body);
     return () => observer.disconnect();
   }, []);
+  const getResidualHeight = () => {
+    const wWidth = window.innerWidth;
+    if (wWidth < 550) {
+      return 45;
+    } else if (wWidth < 900) {
+      return 70;
+    } else if (wWidth > 900) {
+      return 90;
+    }
+    return 100;
+  };
 
-  const thresholdHeight = Math.min(windowWidth / 2 - 50, 500);
+  const getThresholdMinHeight = () => {
+    const wWidth = window.innerWidth;
+    if (wWidth < 700) {
+      return 700;
+    } else if (wWidth < 1200) {
+      return 350;
+    } else if (wWidth < 1400) {
+      return 400;
+    } else if (wWidth > 1400 && wWidth <= 1600) {
+      return 500;
+    } else if (wWidth > 1600) {
+      return 550;
+    }
+    return 1000;
+  };
+
+  const thresholdHeight = Math.min(
+    windowWidth / 2 - getResidualHeight(),
+    getThresholdMinHeight()
+  );
   const comemFrameHeight = thresholdHeight + "px";
   const comemFrameHeight2 = thresholdHeight * 1.347 + "px";
 
@@ -119,13 +157,14 @@ function App() {
           title="L'Abeille Global Project"
         >
           <img
-            src={image3p2}
+            src={labeileSection}
             alt="L'Abeille Global project showcase and design work"
             title="L'Abeille Global Project"
             className="w-full h-auto object-cover"
           />
+
           {/* Motion graphic frames : 3 columns, content of frame is a video  */}
-          <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="mt-[30px] sm:mt-[50px] grid grid-cols-3 gap-4 px-[24px] sm:px-[50px] lg:px-[50px] mb-10">
             <div
               className="relative w-full overflow-hidden"
               style={{ aspectRatio: "547 / 672" }}
@@ -137,7 +176,7 @@ function App() {
                 title="Motion Graphic Frame"
                 className="absolute inset-0 w-full h-full pointer-events-none select-none"
               />
-              <div className="w-full h-full p-[10px]">
+              <div className="w-full h-full p-[3px] md:p-[8px] lg:p-[10px]">
                 <AutoPlayVideo
                   src={motionVid1}
                   className="w-full h-full object-cover"
@@ -149,15 +188,15 @@ function App() {
             </div>
             <div
               className="relative w-full overflow-hidden"
-              style={{ aspectRatio: "547 / 672" }}
+              style={{ aspectRatio: "1 / 1" }}
             >
               <img
-                src={motionGraphicFrame}
+                src={motionGraphicFrameSquare}
                 alt="Motion graphic frame"
                 title="Motion Graphic Frame"
                 className="absolute inset-0 w-full h-full pointer-events-none select-none"
               />
-              <div className="w-full h-full p-[10px]">
+              <div className="w-full h-full p-[3px] md:p-[8px] lg:p-[10px]">
                 <AutoPlayVideo
                   src={motionVid2}
                   className="w-full h-full object-cover"
@@ -177,7 +216,7 @@ function App() {
                 title="Motion Graphic Frame"
                 className="absolute inset-0 w-full h-full pointer-events-none select-none"
               />
-              <div className="w-full h-full p-[10px]">
+              <div className="w-full h-full p-[3px] md:p-[8px] lg:p-[10px]">
                 <AutoPlayVideo
                   src={motionVid3}
                   className="w-full h-full object-cover"
@@ -185,6 +224,42 @@ function App() {
                   ariaLabel="L'Abeille Global motion graphic video 3"
                   controls={false}
                 />
+              </div>
+            </div>
+          </div>
+
+          {/* Landing page navigation hero: */}
+          <div className="px-[24px] sm:px-[50px] lg:px-[50px]">
+            <div className="w-full relative mt-10 mb-10">
+              {/* Background image */}
+              <img
+                src={labeilleLandingPageNavigation}
+                alt="L'Abeille Global landing page navigation design"
+                title="L'Abeille Global Landing Page Navigation"
+                className="w-full h-auto object-cover"
+              />
+
+              {/* Text and button overlay - positioned at center-right */}
+              <div className="absolute inset-0 flex items-center justify-start pl-2 lg:pl-[24px]">
+                <div className="flex flex-col items-center gap-4 md:gap-6">
+                  {/* Title text from image */}
+                  <img
+                    src={labeilleLandingPageTextBtn}
+                    alt="Landing page - Danton Biotin"
+                    className="w-[120px] md:w-[180px] lg:w-[300px] h-auto"
+                  />
+
+                  {/* Interactive button */}
+                  <PrimaryButton
+                    href="http://www.labeilleglobal.vn/biotin"
+                    showArrow={true}
+                    title="Open L'Abeille Global landing page"
+                    ariaLabel="Open L'Abeille Global landing page on Behance"
+                    className="text-[9px] md:text-[14px] lg:text-[20px] px-[9px] md:px-[10px] lg:px-10 py-[5px] md:py-[10px] lg:py-5"
+                  >
+                    Open landing page
+                  </PrimaryButton>
+                </div>
               </div>
             </div>
           </div>
@@ -218,35 +293,7 @@ function App() {
           className="bg-white mb-[30px]"
           title="Cỏ mềm Lab - Additional Project Details"
         >
-          <div className="mx-auto h-auto relative w-full">
-            <img
-              src="/video/hoa_1.png"
-              alt="Cỏ mềm decorative element - flower design 1"
-              title="Cỏ mềm Decorative Element"
-              className="comem-effect index-1 aspect-square object-cover w-[70px] h-[70px] md:w-[100px] md:h-[100px] lg:w-[200px] lg:h-[200px] absolute left-0 overflow-visible"
-              style={{
-                zIndex: "100",
-              }}
-            />
-            <img
-              src="/video/hoa_2.png"
-              alt="Cỏ mềm decorative element - flower design 2"
-              title="Cỏ mềm Decorative Element"
-              className="comem-effect index-2 aspect-square object-cover w-[70px] h-[70px] md:w-[100px] md:h-[100px] lg:w-[200px] lg:h-[200px] absolute right-0 overflow-visible"
-              style={{
-                top: "60px",
-                zIndex: "100",
-              }}
-            />
-            <img
-              src="/video/hoa_3.png"
-              alt="Cỏ mềm decorative element - flower design 3"
-              title="Cỏ mềm Decorative Element"
-              className="comem-effect index-3 aspect-square object-cover w-[140px] h-[70px] md:w-[200px] md:h-[100px] lg:w-[400px] lg:h-[200px] absolute right-0 overflow-visible"
-              style={{
-                zIndex: "100",
-              }}
-            />
+          <div className="mx-auto h-auto relative w-full px-[24px] sm:px-[50px] lg:px-[50px]">
             <div className="comem__frame flex flex-nowrap justify-center w-full h-auto">
               <div
                 className="comem__frame-btn aspect-square h-full flex justify-center items-center relative mr-[15px] md:mr-[25px]"
@@ -266,6 +313,7 @@ function App() {
                     className="w-full h-full"
                     title="Cỏ mềm project video 1"
                     ariaLabel="Cỏ mềm project video 1"
+                    controls={false}
                   />
                 </button>
               </div>
@@ -288,6 +336,7 @@ function App() {
                     className="w-full h-full"
                     title="Cỏ mềm project video 2"
                     ariaLabel="Cỏ mềm project video 2"
+                    controls={false}
                   />
                 </button>
               </div>
@@ -332,6 +381,7 @@ function App() {
                     className="w-full h-full"
                     title="Cỏ mềm project video 4"
                     ariaLabel="Cỏ mềm project video 4"
+                    controls={false}
                   />
                 </button>
               </div>
@@ -349,6 +399,41 @@ function App() {
             title="Vietis Education Project"
             className="w-full h-auto object-cover"
           />
+          {/* Vietis Landing page navigation hero: */}
+          <div className="px-[24px] sm:px-[50px] lg:px-[50px]">
+            <div className="w-full relative mt-10 mb-10">
+              {/* Background image */}
+              <img
+                src={vietisLandingPageNavigation}
+                alt="Vietis Education landing page navigation design"
+                title="Vietis Education Landing Page Navigation"
+                className="w-full h-auto object-cover"
+              />
+
+              {/* Text and button overlay - positioned at center-left */}
+              <div className="absolute inset-0 flex items-center justify-start">
+                <div className="flex flex-col items-center gap-4 md:gap-6 pl-2 lg:pl-[24px]">
+                  {/* Title text from image */}
+                  <img
+                    src={vietisLandingPageTextBtn}
+                    alt="Landing page - Vietis Education"
+                    className="w-[120px] md:w-[300px] lg:w-[300px] h-auto"
+                  />
+
+                  {/* Interactive button */}
+                  <PrimaryButton
+                    href="https://www.vietis.edu.vn/khoa-hoc-dao-tao-pre-brse-thuc-chien/"
+                    showArrow={true}
+                    title="Open Vietis Education landing page"
+                    ariaLabel="Open Vietis Education landing page on Behance"
+                    className="text-[9px] md:text-base lg:text-[20px] px-[9px] md:px-8 lg:px-10 py-[5px] md:py-4 lg:py-5 bg-secondary-reverse"
+                  >
+                    Open landing page
+                  </PrimaryButton>
+                </div>
+              </div>
+            </div>
+          </div>
         </section>
         <section
           id="social-media-posts-1"

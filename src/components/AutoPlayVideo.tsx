@@ -40,6 +40,15 @@ const AutoPlayVideo: React.FC<AutoPlayVideoProps> = ({
       video.setAttribute("controlsList", "nofullscreen noplaybackrate");
     } catch {}
 
+    // Auto-blur when video receives focus (prevents focus during autoplay)
+    const handleFocus = () => {
+      if (video && document.activeElement === video) {
+        video.blur();
+      }
+    };
+
+    video.addEventListener("focus", handleFocus);
+
     const obs = new IntersectionObserver(
       (entries) => {
         const entry = entries[0];
@@ -53,6 +62,10 @@ const AutoPlayVideo: React.FC<AutoPlayVideoProps> = ({
               // swallow autoplay errors
             });
           }
+          // Blur immediately after autoplay to prevent focus
+          if (document.activeElement === video) {
+            video.blur();
+          }
         } else {
           if (!video.paused) {
             video.pause();
@@ -64,6 +77,7 @@ const AutoPlayVideo: React.FC<AutoPlayVideoProps> = ({
 
     obs.observe(video);
     return () => {
+      video.removeEventListener("focus", handleFocus);
       obs.disconnect();
     };
   }, [threshold]);

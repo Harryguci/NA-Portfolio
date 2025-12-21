@@ -12,19 +12,88 @@ body {
   background: #fffcd1;
   background: -webkit-linear-gradient(
     180deg,
-    rgba(255, 252, 209, 1) 0%,
+    #fff2ac 0%,
     rgba(255, 253, 255, 1) 100%,
     rgba(255, 253, 255, 1) 100%
   );
   background: -moz-linear-gradient(
     180deg,
-    rgba(255, 252, 209, 1) 0%,
+    #fff2ac 0%,
     rgba(255, 253, 255, 1) 100%,
     rgba(255, 253, 255, 1) 100%
   );
   background: linear-gradient(
     180deg,
-    rgba(255, 252, 209, 1) 0%,
+    #fff2ac 0%,
+    rgba(255, 253, 255, 1) 100%,
+    rgba(255, 253, 255, 1) 100%
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#FFFCD1", endColorstr="#FFFDFF", GradientType=0);
+}
+
+.bg-secondary {
+  background: #58bdbb;
+  background: -webkit-linear-gradient(
+    180deg,
+    #58bdbb 0%,
+    rgba(255, 253, 255, 1) 100%,
+    rgba(255, 253, 255, 1) 100%
+  );
+  background: -moz-linear-gradient(
+    180deg,
+    #58bdbb 0%,
+    rgba(255, 253, 255, 1) 100%,
+    rgba(255, 253, 255, 1) 100%
+  );
+  background: linear-gradient(
+    180deg,
+    #58bdbb 0%,
+    rgba(255, 253, 255, 1) 100%,
+    rgba(255, 253, 255, 1) 100%
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#FFFCD1", endColorstr="#FFFDFF", GradientType=0);
+}
+
+.bg-primary-reverse {
+  background: #fffcd1;
+  background: -webkit-linear-gradient(
+    0deg,
+    #fff2ac 0%,
+    rgba(255, 253, 255, 1) 100%,
+    rgba(255, 253, 255, 1) 100%
+  );
+  background: -moz-linear-gradient(
+    0deg,
+    #fff2ac 0%,
+    rgba(255, 253, 255, 1) 100%,
+    rgba(255, 253, 255, 1) 100%
+  );
+  background: linear-gradient(
+    0deg,
+    #fff2ac 0%,
+    rgba(255, 253, 255, 1) 100%,
+    rgba(255, 253, 255, 1) 100%
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#FFFCD1", endColorstr="#FFFDFF", GradientType=0);
+}
+
+.bg-secondary-reverse {
+  background: #58bdbb;
+  background: -webkit-linear-gradient(
+    0deg,
+    #58bdbb 0%,
+    rgba(255, 253, 255, 1) 100%,
+    rgba(255, 253, 255, 1) 100%
+  );
+  background: -moz-linear-gradient(
+    0deg,
+    #58bdbb 0%,
+    rgba(255, 253, 255, 1) 100%,
+    rgba(255, 253, 255, 1) 100%
+  );
+  background: linear-gradient(
+    0deg,
+    #58bdbb 0%,
     rgba(255, 253, 255, 1) 100%,
     rgba(255, 253, 255, 1) 100%
   );

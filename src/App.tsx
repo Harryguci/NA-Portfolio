@@ -3,20 +3,31 @@ import { useEffect, useState } from "react";
 import IntervalVideo from "./components/IntervalVideo";
 import AutoPlayVideo from "./components/AutoPlayVideo";
 import assertsJson from "./assert_urls.json";
-const [image10, biaVideo, vid1Video, vid2Video, gif3Video, vid4Video, image4] =
-  assertsJson.asserts as string[];
+const [
+  image10,
+  biaVideo,
+  vid1Video,
+  vid2Video,
+  gif3Video,
+  vid4Video,
+  image4,
+  motionVid1,
+  motionVid2,
+  motionVid3,
+] = assertsJson.asserts as string[];
 import Loading from "./components/Loading";
 import resume from "./assets/resume.png";
 import image3 from "./assets/3.png";
 import image3p2 from "./assets/3p2.png";
 import image5 from "./assets/5.png";
 import image5p2 from "./assets/5_p2.png";
-import image6 from "./assets/6.png";
+// import image6 from "./assets/6.png";
 import image7 from "./assets/7.png";
 import image8 from "./assets/8.png";
 import image9 from "./assets/9.png";
 import image11 from "./assets/11.png";
 import image12 from "./assets/12.jpg";
+import motionGraphicFrame from "./assets/motion_graphic_frame.png";
 import FloatNav from "./components/FloatNav";
 
 function App() {
@@ -113,6 +124,70 @@ function App() {
             title="L'Abeille Global Project"
             className="w-full h-auto object-cover"
           />
+          {/* Motion graphic frames : 3 columns, content of frame is a video  */}
+          <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div
+              className="relative w-full overflow-hidden"
+              style={{ aspectRatio: "547 / 672" }}
+            >
+              {/* Frame overlay */}
+              <img
+                src={motionGraphicFrame}
+                alt="Motion graphic frame"
+                title="Motion Graphic Frame"
+                className="absolute inset-0 w-full h-full pointer-events-none select-none"
+              />
+              <div className="w-full h-full p-[10px]">
+                <AutoPlayVideo
+                  src={motionVid1}
+                  className="w-full h-full object-cover"
+                  title="L'Abeille Global motion graphic 1"
+                  ariaLabel="L'Abeille Global motion graphic video 1"
+                  controls={false}
+                />
+              </div>
+            </div>
+            <div
+              className="relative w-full overflow-hidden"
+              style={{ aspectRatio: "547 / 672" }}
+            >
+              <img
+                src={motionGraphicFrame}
+                alt="Motion graphic frame"
+                title="Motion Graphic Frame"
+                className="absolute inset-0 w-full h-full pointer-events-none select-none"
+              />
+              <div className="w-full h-full p-[10px]">
+                <AutoPlayVideo
+                  src={motionVid2}
+                  className="w-full h-full object-cover"
+                  title="L'Abeille Global motion graphic 2"
+                  ariaLabel="L'Abeille Global motion graphic video 2"
+                  controls={false}
+                />
+              </div>
+            </div>
+            <div
+              className="relative w-full overflow-hidden"
+              style={{ aspectRatio: "547 / 672" }}
+            >
+              <img
+                src={motionGraphicFrame}
+                alt="Motion graphic frame"
+                title="Motion Graphic Frame"
+                className="absolute inset-0 w-full h-full pointer-events-none select-none"
+              />
+              <div className="w-full h-full p-[10px]">
+                <AutoPlayVideo
+                  src={motionVid3}
+                  className="w-full h-full object-cover"
+                  title="L'Abeille Global motion graphic 3"
+                  ariaLabel="L'Abeille Global motion graphic video 3"
+                  controls={false}
+                />
+              </div>
+            </div>
+          </div>
         </section>
         <section
           id="comem-lab"

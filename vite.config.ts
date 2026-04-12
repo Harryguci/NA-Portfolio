@@ -9,10 +9,18 @@ export default defineConfig({
   publicDir: "public",
   server: {
     host: '0.0.0.0',
-    port: 3000
+    port: 3000,
+    // Allow dev server behind ngrok / reverse proxies with varying Host headers
+    allowedHosts: true,
+  },
+  preview: {
+    host: '0.0.0.0',
+    port: 3000,
+    // Required when opening `vite preview` via ngrok (or add specific hosts to the array)
+    allowedHosts: true,
   },
   build: {
-    outDir: "build",
+    outDir: "dist",
     sourcemap: true,
   },
 })

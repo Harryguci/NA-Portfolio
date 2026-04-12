@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 export interface AutoPlayVideoProps {
   src: string;
@@ -11,6 +11,10 @@ export interface AutoPlayVideoProps {
   controls?: boolean;
   // Optional poster image
   poster?: string;
+  /** When true, the video source is not set until the element is near the viewport */
+  deferLoad?: boolean;
+  /** Margin passed to IntersectionObserver when deferLoad is true */
+  loadRootMargin?: string;
 }
 
 const AutoPlayVideo: React.FC<AutoPlayVideoProps> = ({
@@ -21,12 +25,33 @@ const AutoPlayVideo: React.FC<AutoPlayVideoProps> = ({
   threshold = 0.6,
   controls = true,
   poster,
+  deferLoad = true,
+  loadRootMargin = "300px",
 }) => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
+  const loadSentinelRef = useRef<HTMLDivElement | null>(null);
+  const [mediaReady, setMediaReady] = useState(!deferLoad);
+
+  useEffect(() => {
+    if (!deferLoad) {
+      setMediaReady(true);
+      return;
+    }
+    const el = loadSentinelRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]?.isIntersecting) setMediaReady(true);
+      },
+      { rootMargin: loadRootMargin, threshold: 0 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [deferLoad, loadRootMargin]);
 
   useEffect(() => {
     const video = videoRef.current;
-    if (!video) return;
+    if (!video || !mediaReady) return;
 
     // Ensure inline playback on iOS Safari and reduce chances of fullscreen
     try {
@@ -38,7 +63,9 @@ const AutoPlayVideo: React.FC<AutoPlayVideoProps> = ({
       // Hint to hide/disable fullscreen/PiP where supported
       video.setAttribute("disablePictureInPicture", "true");
       video.setAttribute("controlsList", "nofullscreen noplaybackrate");
-    } catch {}
+    } catch {
+      /* setAttribute may throw in rare DOM environments */
+    }
 
     // Auto-blur when video receives focus (prevents focus during autoplay)
     const handleFocus = () => {
@@ -80,26 +107,34 @@ const AutoPlayVideo: React.FC<AutoPlayVideoProps> = ({
       video.removeEventListener("focus", handleFocus);
       obs.disconnect();
     };
-  }, [threshold]);
+  }, [threshold, mediaReady]);
+
+  const preload: "none" | "metadata" | "auto" = !mediaReady
+    ? "none"
+    : poster
+      ? "metadata"
+      : "auto";
 
   return (
-    <video
-      ref={videoRef}
-      className={className}
-      // Keep controls for accessibility
-      controls={controls}
-      // Inline playback is crucial on iOS to avoid fullscreen
-      playsInline
-      muted
-      // Smooth UX for short clips
-      loop
-      preload={poster ? "metadata" : "auto"}
-      title={title}
-      aria-label={ariaLabel}
-      poster={poster}
-    >
-      <source src={src} type="video/mp4" />
-    </video>
+    <div ref={loadSentinelRef} className="w-full h-full min-h-0">
+      <video
+        ref={videoRef}
+        className={className}
+        // Keep controls for accessibility
+        controls={controls}
+        // Inline playback is crucial on iOS to avoid fullscreen
+        playsInline
+        muted
+        // Smooth UX for short clips
+        loop
+        preload={preload}
+        title={title}
+        aria-label={ariaLabel}
+        poster={poster}
+      >
+        {mediaReady ? <source src={src} type="video/mp4" /> : null}
+      </video>
+    </div>
   );
 };
 

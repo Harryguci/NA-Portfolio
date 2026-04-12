@@ -1,7 +1,9 @@
 import "./App.css";
 import { useEffect, useState } from "react";
 import IntervalVideo from "./components/IntervalVideo";
-import AutoPlayVideo from "./components/AutoPlayVideo";
+import CachedAutoPlayVideo from "./components/CachedAutoPlayVideo";
+import CachedRemoteImg from "./components/CachedRemoteImg";
+import { useCachedBlobUrl } from "./utils/cachedBlobUrl";
 import assertsJson from "./assert_urls.json";
 const [
   image10,
@@ -17,6 +19,7 @@ const [
   labeileSection,
 ] = assertsJson.asserts as string[];
 import Loading from "./components/Loading";
+import DeferredSection from "./components/DeferredSection";
 import resume from "./assets/resume.png";
 import image3 from "./assets/3.png";
 // import image3p2 from "./assets/3p2.png";
@@ -41,44 +44,26 @@ import vietisLandingPageTextBtn from "./assets/landing_vietis_text-btn.png";
 function App() {
   const [assetsLoaded, setAssetsLoaded] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const biaResolved = useCachedBlobUrl(biaVideo);
 
   useEffect(() => {
-    const imageUrls = [image10];
-    const videoUrls = [
-      biaVideo,
-      // resume1Video,
-      vid1Video,
-      vid2Video,
-      gif3Video,
-      vid4Video,
-    ];
+    if (!biaResolved) return;
 
-    const loadImage = (url: string) =>
-      new Promise<void>((resolve) => {
-        const img = new Image();
-        img.onload = () => resolve();
-        img.onerror = () => resolve();
-        img.src = url;
-      });
-
-    const loadVideo = (url: string) =>
+    const loadHeroVideo = (url: string) =>
       new Promise<void>((resolve) => {
         const video = document.createElement("video");
         video.preload = "auto";
         video.muted = true;
         const finish = () => resolve();
         video.addEventListener("canplaythrough", finish, { once: true });
+        video.addEventListener("canplay", finish, { once: true });
         video.addEventListener("error", finish, { once: true });
-        // Fallback timeout in case events never fire
-        setTimeout(finish, 8000);
+        setTimeout(finish, 12000);
         video.src = url;
       });
 
-    Promise.any([
-      ...imageUrls.map(loadImage),
-      ...videoUrls.map(loadVideo),
-    ]).then(() => setAssetsLoaded(true));
-  }, []);
+    loadHeroVideo(biaResolved).then(() => setAssetsLoaded(true));
+  }, [biaResolved]);
 
   useEffect(() => {
     // Observe window width
@@ -136,35 +121,43 @@ function App() {
           className="text-white"
           title="Giới thiệu - Introduction"
         >
-          <IntervalVideo
-            src={biaVideo}
-            interval={12000} // 5 seconds interval
-            className="w-full h-auto"
-            title="Introduction video - Giới thiệu portfolio"
-          />
+          {biaResolved ? (
+            <IntervalVideo
+              src={biaResolved}
+              interval={12000} // 5 seconds interval
+              className="w-full h-auto"
+              title="Introduction video - Giới thiệu portfolio"
+            />
+          ) : null}
         </section>
         <section id="resume" className="bg-white" title="Hồ sơ - Resume">
-          <img
-            src={resume}
-            alt="Professional resume and portfolio overview"
-            title="Resume - Hồ sơ"
-            className="w-full h-auto"
-          />
+          <DeferredSection>
+            <img
+              src={resume}
+              alt="Professional resume and portfolio overview"
+              title="Resume - Hồ sơ"
+              className="w-full h-auto"
+              decoding="async"
+            />
+          </DeferredSection>
         </section>
         <section
           id="labeille-global"
           className="bg-white w-full"
           title="L'Abeille Global Project"
         >
-          <img
-            src={labeileSection}
-            alt="L'Abeille Global project showcase and design work"
-            title="L'Abeille Global Project"
-            className="w-full h-auto object-cover"
-          />
+          <DeferredSection placeholderClassName="w-full min-h-[280px] sm:min-h-[360px] bg-neutral-100/90 animate-pulse rounded-sm">
+            <CachedRemoteImg
+              src={labeileSection}
+              alt="L'Abeille Global project showcase and design work"
+              title="L'Abeille Global Project"
+              className="w-full h-auto object-cover"
+              loading="lazy"
+              decoding="async"
+            />
 
-          {/* Motion graphic frames : 3 columns, content of frame is a video  */}
-          <div className="mt-[30px] sm:mt-[50px] grid grid-cols-3 gap-[5px] md:gap-4 px-[24px] sm:px-[50px] lg:px-[60px] mb-10">
+            {/* Motion graphic frames : 3 columns, content of frame is a video  */}
+            <div className="mt-[30px] sm:mt-[50px] grid grid-cols-3 gap-[5px] md:gap-4 px-[24px] sm:px-[50px] lg:px-[60px] mb-10">
             <div
               className="relative w-full overflow-hidden"
               style={{ aspectRatio: "547 / 672" }}
@@ -175,9 +168,11 @@ function App() {
                 alt="Motion graphic frame"
                 title="Motion Graphic Frame"
                 className="absolute inset-0 w-full h-full pointer-events-none select-none"
+                loading="lazy"
+                decoding="async"
               />
               <div className="w-full h-full p-[3px] md:p-[8px] lg:p-[10px]">
-                <AutoPlayVideo
+                <CachedAutoPlayVideo
                   src={motionVid1}
                   className="w-full h-full object-cover"
                   title="L'Abeille Global motion graphic 1"
@@ -195,9 +190,11 @@ function App() {
                 alt="Motion graphic frame"
                 title="Motion Graphic Frame"
                 className="absolute inset-0 w-full h-full pointer-events-none select-none"
+                loading="lazy"
+                decoding="async"
               />
               <div className="w-full h-full p-[3px] md:p-[8px] lg:p-[10px]">
-                <AutoPlayVideo
+                <CachedAutoPlayVideo
                   src={motionVid2}
                   className="w-full h-full object-cover"
                   title="L'Abeille Global motion graphic 2"
@@ -215,9 +212,11 @@ function App() {
                 alt="Motion graphic frame"
                 title="Motion Graphic Frame"
                 className="absolute inset-0 w-full h-full pointer-events-none select-none"
+                loading="lazy"
+                decoding="async"
               />
               <div className="w-full h-full p-[3px] md:p-[8px] lg:p-[10px]">
-                <AutoPlayVideo
+                <CachedAutoPlayVideo
                   src={motionVid3}
                   className="w-full h-full object-cover"
                   title="L'Abeille Global motion graphic 3"
@@ -237,6 +236,8 @@ function App() {
                 alt="L'Abeille Global landing page navigation design"
                 title="L'Abeille Global Landing Page Navigation"
                 className="w-full h-auto object-cover"
+                loading="lazy"
+                decoding="async"
               />
 
               {/* Text and button overlay - positioned at center-right */}
@@ -247,6 +248,8 @@ function App() {
                     src={labeilleLandingPageTextBtn}
                     alt="Landing page - Danton Biotin"
                     className="w-[100px] md:w-[180px] lg:w-[300px] h-auto"
+                    loading="lazy"
+                    decoding="async"
                   />
 
                   {/* Interactive button */}
@@ -263,18 +266,22 @@ function App() {
               </div>
             </div>
           </div>
+          </DeferredSection>
         </section>
         <section
           id="comem-lab"
           className="bg-white w-full"
           title="Cỏ mềm - Comem Lab Project"
         >
-          <img
-            src={image3}
-            alt="Cỏ mềm project showcase and design work"
-            title="Cỏ mềm Project"
-            className="w-full h-auto object-cover"
-          />
+          <DeferredSection placeholderClassName="w-full min-h-[260px] bg-neutral-100/90 animate-pulse rounded-sm">
+            <img
+              src={image3}
+              alt="Cỏ mềm project showcase and design work"
+              title="Cỏ mềm Project"
+              className="w-full h-auto object-cover"
+              loading="lazy"
+              decoding="async"
+            />
           {/* <p className="text-right text-sm px-5 pt-0 pb-10 pr-[12px] md:pr-[50px] pl-[12px] md:text-3xl">
             View more on my behance:{" "}
             <a
@@ -287,12 +294,14 @@ function App() {
               https://www.behance.net/phanthngcanh/projects
             </a>
           </p> */}
+          </DeferredSection>
         </section>
         <section
           id="comem-lab-2"
           className="bg-white mb-[30px]"
           title="Cỏ mềm Lab - Additional Project Details"
         >
+          <DeferredSection placeholderClassName="w-full min-h-[200px] bg-neutral-100/90 animate-pulse rounded-sm">
           <div className="mx-auto h-auto relative w-full px-[24px] sm:px-[50px] lg:px-[50px]">
             <div className="comem__frame flex flex-nowrap justify-center w-full h-auto">
               <div
@@ -308,7 +317,7 @@ function App() {
                   title="Play Cỏ mềm project video 1"
                   aria-label="Play Cỏ mềm project video 1"
                 >
-                  <AutoPlayVideo
+                  <CachedAutoPlayVideo
                     src={vid1Video}
                     className="w-full h-full"
                     title="Cỏ mềm project video 1"
@@ -331,7 +340,7 @@ function App() {
                   title="Play Cỏ mềm project video 2"
                   aria-label="Play Cỏ mềm project video 2"
                 >
-                  <AutoPlayVideo
+                  <CachedAutoPlayVideo
                     src={vid2Video}
                     className="w-full h-full"
                     title="Cỏ mềm project video 2"
@@ -355,11 +364,13 @@ function App() {
                   title="View Cỏ mềm project animation"
                   aria-label="View Cỏ mềm project animation"
                 >
-                  <img
+                  <CachedRemoteImg
                     src={gif3Video}
                     alt="Cỏ mềm project animation and interactive design"
                     title="Cỏ mềm Project Animation"
                     className="w-full h-full object-cover"
+                    loading="lazy"
+                    decoding="async"
                   />
                 </button>
               </div>
@@ -376,7 +387,7 @@ function App() {
                   title="Play Cỏ mềm project video 4"
                   aria-label="Play Cỏ mềm project video 4"
                 >
-                  <AutoPlayVideo
+                  <CachedAutoPlayVideo
                     src={vid4Video}
                     className="w-full h-full"
                     title="Cỏ mềm project video 4"
@@ -387,18 +398,22 @@ function App() {
               </div>
             </div>
           </div>
+          </DeferredSection>
         </section>
         <section
           id="viet-education"
           className="bg-white"
           title="Vietis Education Project"
         >
-          <img
-            src={image4}
-            alt="Vietis Education project showcase and design portfolio"
-            title="Vietis Education Project"
-            className="w-full h-auto object-cover"
-          />
+          <DeferredSection placeholderClassName="w-full min-h-[280px] bg-neutral-100/90 animate-pulse rounded-sm">
+            <CachedRemoteImg
+              src={image4}
+              alt="Vietis Education project showcase and design portfolio"
+              title="Vietis Education Project"
+              className="w-full h-auto object-cover"
+              loading="lazy"
+              decoding="async"
+            />
           {/* Vietis Landing page navigation hero: */}
           <div className="px-[24px] sm:px-[50px] lg:px-[50px]">
             <div className="w-full relative mt-2 mb-3 md:mt-10 md:mb-10">
@@ -408,6 +423,8 @@ function App() {
                 alt="Vietis Education landing page navigation design"
                 title="Vietis Education Landing Page Navigation"
                 className="w-full h-auto object-cover"
+                loading="lazy"
+                decoding="async"
               />
 
               {/* Text and button overlay - positioned at center-left */}
@@ -418,6 +435,8 @@ function App() {
                     src={vietisLandingPageTextBtn}
                     alt="Landing page - Vietis Education"
                     className="w-[100px] md:w-[180px] lg:w-[300px] h-auto"
+                    loading="lazy"
+                    decoding="async"
                   />
 
                   {/* Interactive button */}
@@ -434,88 +453,119 @@ function App() {
               </div>
             </div>
           </div>
+          </DeferredSection>
         </section>
         <section
           id="social-media-posts-1"
           className="bg-white"
           title="Social Media Posts - Part 1"
         >
-          <img
-            src={image5}
-            alt="Social media posts design portfolio and creative work"
-            title="Social Media Posts Portfolio"
-            className="w-full h-auto object-cover"
-          />
-          <img
-            src={image5p2}
-            alt="Social media posts design portfolio and creative work part 2"
-            title="Social Media Posts Portfolio Part 2"
-            className="w-full h-auto object-cover mt-5"
-          />
+          <DeferredSection placeholderClassName="w-full min-h-[280px] bg-neutral-100/90 animate-pulse rounded-sm">
+            <img
+              src={image5}
+              alt="Social media posts design portfolio and creative work"
+              title="Social Media Posts Portfolio"
+              className="w-full h-auto object-cover"
+              loading="lazy"
+              decoding="async"
+            />
+            <img
+              src={image5p2}
+              alt="Social media posts design portfolio and creative work part 2"
+              title="Social Media Posts Portfolio Part 2"
+              className="w-full h-auto object-cover mt-5"
+              loading="lazy"
+              decoding="async"
+            />
+          </DeferredSection>
         </section>
         <section id="kidulties" className="bg-white" title="Kidulties Project">
-          <img
-            src={image7}
-            alt="Kidulties project showcase and brand design"
-            title="Kidulties Project"
-            className="w-full h-auto object-cover"
-          />
+          <DeferredSection>
+            <img
+              src={image7}
+              alt="Kidulties project showcase and brand design"
+              title="Kidulties Project"
+              className="w-full h-auto object-cover"
+              loading="lazy"
+              decoding="async"
+            />
+          </DeferredSection>
         </section>
         <section
           id="nungning-garden"
           className="bg-white"
           title="Nungning Garden Project"
         >
-          <img
-            src={image8}
-            alt="Nungning Garden project showcase and design work"
-            title="Nungning Garden Project"
-            className="w-full h-auto object-cover"
-          />
+          <DeferredSection>
+            <img
+              src={image8}
+              alt="Nungning Garden project showcase and design work"
+              title="Nungning Garden Project"
+              className="w-full h-auto object-cover"
+              loading="lazy"
+              decoding="async"
+            />
+          </DeferredSection>
         </section>
         <section id="others" className="bg-white" title="Other Projects">
-          <img
-            src={image9}
-            alt="Additional portfolio projects and design work"
-            title="Other Projects Portfolio"
-            className="w-full h-auto object-cover"
-          />
+          <DeferredSection>
+            <img
+              src={image9}
+              alt="Additional portfolio projects and design work"
+              title="Other Projects Portfolio"
+              className="w-full h-auto object-cover"
+              loading="lazy"
+              decoding="async"
+            />
+          </DeferredSection>
         </section>
         <section
           id="others-1"
           className="bg-white px-[24px] sm:px-[32px] lg:px-[100px] xl:px-[140px]"
           title="Additional Portfolio Work - Part 1"
         >
-          <img
-            src={image10}
-            alt="Additional portfolio showcase and creative design work"
-            title="Additional Portfolio Work"
-            className="w-full h-auto object-cover rounded-[15px] md:rounded-[40px]"
-          />
+          <DeferredSection placeholderClassName="w-full min-h-[200px] bg-neutral-100/90 animate-pulse rounded-sm">
+            <CachedRemoteImg
+              src={image10}
+              alt="Additional portfolio showcase and creative design work"
+              title="Additional Portfolio Work"
+              className="w-full h-auto object-cover rounded-[15px] md:rounded-[40px]"
+              loading="lazy"
+              decoding="async"
+            />
+          </DeferredSection>
         </section>
         <section
           id="others-2"
           className="bg-white px-[24px] sm:px-[32px] lg:px-[100px] xl:px-[140px]"
           title="Additional Portfolio Work - Part 2"
         >
-          <img
-            src={image12}
-            alt="Additional portfolio showcase and creative design work part 2"
-            title="Additional Portfolio Work Part 2"
-            className="w-full h-auto object-cover rounded-[15px] md:rounded-[40px]"
-          />
+          <DeferredSection placeholderClassName="w-full min-h-[200px] bg-neutral-100/90 animate-pulse rounded-sm">
+            <img
+              src={image12}
+              alt="Additional portfolio showcase and creative design work part 2"
+              title="Additional Portfolio Work Part 2"
+              className="w-full h-auto object-cover rounded-[15px] md:rounded-[40px]"
+              loading="lazy"
+              decoding="async"
+            />
+          </DeferredSection>
         </section>
         <section
           id="footer"
           className="bg-white"
           title="Footer - Contact and Information"
         >
-          <img
-            src={image11}
-            alt="Portfolio footer with contact information and branding"
-            title="Portfolio Footer"
-            className="w-full h-auto object-cover"
-          />
+          <DeferredSection>
+            <img
+              src={image11}
+              alt="Portfolio footer with contact information and branding"
+              title="Portfolio Footer"
+              className="w-full h-auto object-cover"
+              loading="lazy"
+              decoding="async"
+            />
+          </DeferredSection>
         </section>
       </div>
       <FloatNav />

@@ -80,6 +80,7 @@ const IntervalVideo: React.FC<IntervalVideoProps> = ({
         muted
         playsInline             // important for iOS Safari autoplay
         loop={true}
+        preload="auto"
         title={title}
         aria-label={title}
       >

@@ -137,7 +137,6 @@ function App() {
               alt="Professional resume and portfolio overview"
               title="Resume - Hồ sơ"
               className="w-full h-auto"
-              decoding="async"
             />
           </DeferredSection>
         </section>
@@ -152,8 +151,6 @@ function App() {
               alt="L'Abeille Global project showcase and design work"
               title="L'Abeille Global Project"
               className="w-full h-auto object-cover"
-              loading="lazy"
-              decoding="async"
             />
 
             {/* Motion graphic frames : 3 columns, content of frame is a video  */}
@@ -168,8 +165,6 @@ function App() {
                 alt="Motion graphic frame"
                 title="Motion Graphic Frame"
                 className="absolute inset-0 w-full h-full pointer-events-none select-none"
-                loading="lazy"
-                decoding="async"
               />
               <div className="w-full h-full p-[3px] md:p-[8px] lg:p-[10px]">
                 <CachedAutoPlayVideo
@@ -190,8 +185,6 @@ function App() {
                 alt="Motion graphic frame"
                 title="Motion Graphic Frame"
                 className="absolute inset-0 w-full h-full pointer-events-none select-none"
-                loading="lazy"
-                decoding="async"
               />
               <div className="w-full h-full p-[3px] md:p-[8px] lg:p-[10px]">
                 <CachedAutoPlayVideo
@@ -212,8 +205,6 @@ function App() {
                 alt="Motion graphic frame"
                 title="Motion Graphic Frame"
                 className="absolute inset-0 w-full h-full pointer-events-none select-none"
-                loading="lazy"
-                decoding="async"
               />
               <div className="w-full h-full p-[3px] md:p-[8px] lg:p-[10px]">
                 <CachedAutoPlayVideo
@@ -236,8 +227,6 @@ function App() {
                 alt="L'Abeille Global landing page navigation design"
                 title="L'Abeille Global Landing Page Navigation"
                 className="w-full h-auto object-cover"
-                loading="lazy"
-                decoding="async"
               />
 
               {/* Text and button overlay - positioned at center-right */}
@@ -248,8 +237,6 @@ function App() {
                     src={labeilleLandingPageTextBtn}
                     alt="Landing page - Danton Biotin"
                     className="w-[100px] md:w-[180px] lg:w-[300px] h-auto"
-                    loading="lazy"
-                    decoding="async"
                   />
 
                   {/* Interactive button */}
@@ -279,8 +266,6 @@ function App() {
               alt="Cỏ mềm project showcase and design work"
               title="Cỏ mềm Project"
               className="w-full h-auto object-cover"
-              loading="lazy"
-              decoding="async"
             />
           {/* <p className="text-right text-sm px-5 pt-0 pb-10 pr-[12px] md:pr-[50px] pl-[12px] md:text-3xl">
             View more on my behance:{" "}
@@ -369,8 +354,6 @@ function App() {
                     alt="Cỏ mềm project animation and interactive design"
                     title="Cỏ mềm Project Animation"
                     className="w-full h-full object-cover"
-                    loading="lazy"
-                    decoding="async"
                   />
                 </button>
               </div>
@@ -411,8 +394,6 @@ function App() {
               alt="Vietis Education project showcase and design portfolio"
               title="Vietis Education Project"
               className="w-full h-auto object-cover"
-              loading="lazy"
-              decoding="async"
             />
           {/* Vietis Landing page navigation hero: */}
           <div className="px-[24px] sm:px-[50px] lg:px-[50px]">
@@ -423,8 +404,6 @@ function App() {
                 alt="Vietis Education landing page navigation design"
                 title="Vietis Education Landing Page Navigation"
                 className="w-full h-auto object-cover"
-                loading="lazy"
-                decoding="async"
               />
 
               {/* Text and button overlay - positioned at center-left */}
@@ -435,8 +414,6 @@ function App() {
                     src={vietisLandingPageTextBtn}
                     alt="Landing page - Vietis Education"
                     className="w-[100px] md:w-[180px] lg:w-[300px] h-auto"
-                    loading="lazy"
-                    decoding="async"
                   />
 
                   {/* Interactive button */}
@@ -466,16 +443,12 @@ function App() {
               alt="Social media posts design portfolio and creative work"
               title="Social Media Posts Portfolio"
               className="w-full h-auto object-cover"
-              loading="lazy"
-              decoding="async"
             />
             <img
               src={image5p2}
               alt="Social media posts design portfolio and creative work part 2"
               title="Social Media Posts Portfolio Part 2"
               className="w-full h-auto object-cover mt-5"
-              loading="lazy"
-              decoding="async"
             />
           </DeferredSection>
         </section>
@@ -486,8 +459,6 @@ function App() {
               alt="Kidulties project showcase and brand design"
               title="Kidulties Project"
               className="w-full h-auto object-cover"
-              loading="lazy"
-              decoding="async"
             />
           </DeferredSection>
         </section>
@@ -502,8 +473,6 @@ function App() {
               alt="Nungning Garden project showcase and design work"
               title="Nungning Garden Project"
               className="w-full h-auto object-cover"
-              loading="lazy"
-              decoding="async"
             />
           </DeferredSection>
         </section>
@@ -514,8 +483,6 @@ function App() {
               alt="Additional portfolio projects and design work"
               title="Other Projects Portfolio"
               className="w-full h-auto object-cover"
-              loading="lazy"
-              decoding="async"
             />
           </DeferredSection>
         </section>
@@ -530,8 +497,6 @@ function App() {
               alt="Additional portfolio showcase and creative design work"
               title="Additional Portfolio Work"
               className="w-full h-auto object-cover rounded-[15px] md:rounded-[40px]"
-              loading="lazy"
-              decoding="async"
             />
           </DeferredSection>
         </section>
@@ -546,8 +511,6 @@ function App() {
               alt="Additional portfolio showcase and creative design work part 2"
               title="Additional Portfolio Work Part 2"
               className="w-full h-auto object-cover rounded-[15px] md:rounded-[40px]"
-              loading="lazy"
-              decoding="async"
             />
           </DeferredSection>
         </section>
@@ -562,8 +525,6 @@ function App() {
               alt="Portfolio footer with contact information and branding"
               title="Portfolio Footer"
               className="w-full h-auto object-cover"
-              loading="lazy"
-              decoding="async"
             />
           </DeferredSection>
         </section>

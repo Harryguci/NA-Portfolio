@@ -1,0 +1,63 @@
+.window-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 1rem 1.5rem;
+  background-color: #f7d8e2; // Header background
+  border-bottom: 2px solid #4a3728;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+
+  &__dots {
+    position: absolute;
+    left: 1.5rem;
+    display: flex;
+    gap: 0.5rem;
+
+    .dot {
+      width: 1rem;
+      height: 1rem;
+      border-radius: 50%;
+      border: 1px solid rgba(74, 55, 40, 0.2);
+
+      &--pink {
+        background-color: #f8c8dc;
+      }
+      &--yellow {
+        background-color: #fef9c3;
+      }
+      &--blue {
+        background-color: #bde0fe;
+      }
+    }
+  }
+
+  &__title {
+    font-family: "SVN Retron 2000", sans-serif;
+    font-size: 1.25rem;
+    color: #4a3728;
+    transform: translateY(2px);
+    margin: 0;
+    text-transform: uppercase;
+  }
+}
+
+// Mobile adjustments
+@media (max-width: 640px) {
+  .window-header {
+    padding: 0.75rem 1rem;
+
+    &__dots {
+      gap: 0.35rem;
+      .dot {
+        width: 0.75rem;
+        height: 0.75rem;
+      }
+    }
+
+    &__title {
+      font-size: 1rem;
+    }
+  }
+}

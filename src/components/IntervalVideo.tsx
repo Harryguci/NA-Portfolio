@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useEffect, useRef } from "react";
 
 interface IntervalVideoProps {
   src: string;
@@ -8,77 +8,67 @@ interface IntervalVideoProps {
   title?: string;
 }
 
-const IntervalVideo: React.FC<IntervalVideoProps> = ({ 
-  src, 
-  interval, 
-  className = '', 
+const IntervalVideo: React.FC<IntervalVideoProps> = ({
+  src,
+  interval,
+  className = "",
   autoPlay = true,
-  title
+  title,
 }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [_a, setIsPlaying] = useState(false);
-  const [_b, setCurrentInterval] = useState(0);
 
   useEffect(() => {
     if (!videoRef.current || !autoPlay) return;
 
     const video = videoRef.current;
-    let intervalId: any;
+    let monitorIntervalId: number | undefined;
+    let replayIntervalId: number | undefined;
 
     const startInterval = () => {
-      intervalId = setInterval(() => {
+      monitorIntervalId = window.setInterval(() => {
         if (video.currentTime >= video.duration - 0.1) {
-          // Video is about to end, restart it
           video.currentTime = 0;
-          video.play();
-          setCurrentInterval(prev => prev + 1);
+          void video.play();
         }
-      }, 100); // Check every 100ms for video end
+      }, 100);
 
-      // Also set up the main interval timer
-      const mainIntervalId = setInterval(() => {
+      replayIntervalId = window.setInterval(() => {
         if (video.paused) {
-          video.play();
+          void video.play();
         }
-        setCurrentInterval(prev => prev + 1);
       }, interval);
-
-      return () => {
-        clearInterval(intervalId);
-        clearInterval(mainIntervalId);
-      };
     };
 
     const handleVideoEnd = () => {
       video.currentTime = 0;
-      video.play();
-      setCurrentInterval(prev => prev + 1);
+      void video.play();
     };
 
-    video.addEventListener('ended', handleVideoEnd);
-    video.addEventListener('play', () => setIsPlaying(true));
-    video.addEventListener('pause', () => setIsPlaying(false));
+    video.addEventListener("ended", handleVideoEnd);
 
     if (autoPlay) {
       startInterval();
     }
 
     return () => {
-      video.removeEventListener('ended', handleVideoEnd);
-      video.removeEventListener('play', () => setIsPlaying(true));
-      video.removeEventListener('pause', () => setIsPlaying(false));
-      if (intervalId) clearInterval(intervalId);
+      video.removeEventListener("ended", handleVideoEnd);
+      if (monitorIntervalId) {
+        clearInterval(monitorIntervalId);
+      }
+      if (replayIntervalId) {
+        clearInterval(replayIntervalId);
+      }
     };
   }, [interval, autoPlay]);
 
   return (
     <div className={`relative ${className}`}>
-      <video 
+      <video
         ref={videoRef}
-        className='w-full h-auto object-cover'
+        className="h-auto w-full object-cover"
         autoPlay={autoPlay}
         muted
-        playsInline             // important for iOS Safari autoplay
+        playsInline
         loop={true}
         preload="auto"
         title={title}

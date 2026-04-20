@@ -1,39 +1,36 @@
-import FolderCardLink from "../components/FolderCardLink";
+import HomeMenuLink from "../components/HomeMenuLink";
 import FloatingDecor from "../components/FloatingDecor";
-import assetsData from "../assert_urls.json";
 import homeHeroVideo from "../assets/bia.mp4";
 import waterBackground from "../assets/background_water.png";
-
-const [folderPreviewResume, , , , folderPreviewWorks, , , , , , folderPreviewContact] =
-  assetsData.asserts as string[];
+import resumeButton from "../assets/Resume_Button.png";
+import worksButton from "../assets/works_button.png";
+import contactButton from "../assets/contact_button.png";
+import "./HomePage.scss";
 
 const homeFolders = [
   {
     to: "/resume",
-    label: "RESUME",
-    previewSrc: folderPreviewResume,
-    previewAlt: "Resume preview card",
+    src: resumeButton,
+    alt: "Resume button",
   },
   {
     to: "/works",
-    label: "WORKS",
-    previewSrc: folderPreviewWorks,
-    previewAlt: "Works preview card",
+    src: worksButton,
+    alt: "Works button",
   },
   {
     to: "/contact",
-    label: "CONTACT",
-    previewSrc: folderPreviewContact,
-    previewAlt: "Contact preview card",
+    src: contactButton,
+    alt: "Contact button",
   },
 ];
 
 const HomePage = () => {
   return (
-    <main className="isolate min-h-dvh overflow-x-hidden">
-      <section className="relative flex min-h-dvh items-center justify-center">
+    <main className="home-page">
+      <section className="home-page__hero">
         <video
-          className="absolute inset-0 -z-20 h-full w-full object-cover"
+          className="home-page__hero-video"
           autoPlay
           muted
           playsInline
@@ -43,11 +40,11 @@ const HomePage = () => {
         >
           <source src={homeHeroVideo} type="video/mp4" />
         </video>
-        <div className="absolute inset-0 -z-10 bg-white/8" />
+        <div className="home-page__hero-overlay" />
       </section>
 
       <section
-        className="relative flex min-h-[380px] items-end px-4 pb-7 pt-4 sm:px-6 md:px-10"
+        className="home-page__bottom"
         style={{
           backgroundImage: `url(${waterBackground})`,
           backgroundPosition: "center",
@@ -55,12 +52,12 @@ const HomePage = () => {
           backgroundSize: "cover",
         }}
       >
-        <div className="absolute inset-0 bg-[#244f86]/20" />
+        <div className="home-page__bottom-overlay" />
         <FloatingDecor />
-        <div className="relative mx-auto w-full max-w-6xl">
-          <section className="relative mx-auto flex flex-wrap items-end justify-center gap-5 md:gap-7">
+        <div className="home-page__container">
+          <section className="home-page__folders">
             {homeFolders.map((folder) => (
-              <FolderCardLink key={folder.to} {...folder} />
+              <HomeMenuLink key={folder.to} {...folder} />
             ))}
           </section>
         </div>

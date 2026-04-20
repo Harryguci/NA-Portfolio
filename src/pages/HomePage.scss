@@ -1,0 +1,83 @@
+$sm: 640px;
+$md: 768px;
+$lg: 1024px;
+$xl: 1280px;
+
+.home-page {
+  isolation: isolate;
+  min-height: 100dvh;
+  overflow-x: hidden;
+
+  &__hero {
+    position: relative;
+    display: flex;
+    min-height: 100dvh;
+    align-items: center;
+    justify-content: center;
+
+    &-video {
+      position: absolute;
+      inset: 0;
+      z-index: -20;
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+
+    &-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: -10;
+      background-color: rgba(255, 255, 255, 0.08); // Tailwind white/8
+    }
+  }
+
+  &__bottom {
+    position: relative;
+    display: flex;
+    min-height: 380px;
+    align-items: flex-end;
+    padding: 1.25rem 1rem 2.5rem; // pt-5 px-4 pb-10
+    
+    @media (min-width: $sm) {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+
+    @media (min-width: $md) {
+      padding-left: 2.5rem;
+      padding-right: 2.5rem;
+    }
+
+    &-overlay {
+      position: absolute;
+      inset: 0;
+      background-color: rgba(36, 79, 134, 0.2); // Tailwind [#244f86]/20
+      filter: brightness(2.0) saturate(0.1);
+    }
+  }
+
+  &__container {
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    max-width: 1152px; // 6xl = 72rem = 1152px
+  }
+
+  &__folders {
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 10vw; // gap-5 (5 * 0.25rem = 1.25rem)
+
+    @media (min-width: $xl) {
+      flex-wrap: nowrap;
+      gap: 10vw; // gap-9 (9 * 0.25rem = 2.25rem)
+    }
+  }
+}

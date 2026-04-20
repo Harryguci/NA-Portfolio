@@ -1,0 +1,42 @@
+.common-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 0.75rem 2.5rem;
+  background-color: white;
+  border: 2.5px solid #4a3728;
+  border-radius: 9999px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+
+  &__text {
+    font-family: "SVN Retron 2000", sans-serif;
+    font-size: 1.5rem;
+    color: #4a3728;
+    line-height: 1;
+    transform: translateY(-5px); // Adjust for pixel font baseline
+  }
+
+  &__arrow {
+    font-family: "SVN Retron 2000", sans-serif;
+    font-size: 1.8rem;
+    color: #4a3728;
+    line-height: 1;
+    transform: translateY(-5px);
+  }
+
+  &:hover {
+    background: linear-gradient(
+      180deg,
+      rgba(189, 224, 254, 0.4) 0%,
+      rgba(255, 255, 255, 1) 100%
+    );
+    transform: scale(1.02);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}

@@ -14,7 +14,7 @@ export default {
       },
       fontFamily: {
         script: ['"Dancing Script"', "cursive"],
-        pixel: ['"Silkscreen"', '"VT323"', "monospace"],
+        pixel: ['"SVN Retron 2000"', '"Silkscreen"', '"VT323"', "monospace"],
         rounded: ['"Nunito"', '"Quicksand"', "sans-serif"],
       },
       boxShadow: {

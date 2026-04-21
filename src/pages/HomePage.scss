@@ -1,0 +1,122 @@
+$sm: 640px;
+$md: 768px;
+$lg: 1024px;
+$xl: 1280px;
+
+.home-scroll-container {
+  height: 100dvh;
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+.section {
+  scroll-snap-align: start;
+  min-height: 100dvh;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.home-page {
+  isolation: isolate;
+  height: 150vh; // Combined height for hero and links
+  display: flex;
+  flex-direction: column;
+
+  &__hero {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #000;
+    height: 100vh; // Video takes full viewport height
+    width: 100%;
+
+    &-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 1;
+    }
+
+    &-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      background-color: rgba(255, 255, 255, 0.08);
+      pointer-events: none;
+    }
+
+    & > * {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
+
+  &__bottom {
+    position: relative;
+    display: flex;
+    height: 50vh; // Remaining 50vh for links
+    align-items: center;
+    padding: 1.25rem 1rem 2.5rem;
+    
+    @media (min-width: $sm) {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+
+    @media (min-width: $md) {
+      padding-left: 2.5rem;
+      padding-right: 2.5rem;
+    }
+
+    &-overlay {
+      position: absolute;
+      inset: 0;
+      background-color: rgba(36, 79, 134, 0.2);
+      filter: brightness(2.0) saturate(0.1);
+    }
+  }
+
+  &__container {
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    max-width: 1152px;
+  }
+
+  &__folders {
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 10vw;
+
+    @media (min-width: $xl) {
+      flex-wrap: nowrap;
+      gap: 10vw;
+    }
+  }
+}
+
+// Section entry animations
+.section {
+  & > * {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  &.is-visible > * {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

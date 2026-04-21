@@ -1,20 +1,20 @@
 import { useState, useEffect } from "react";
 
+const sections = [
+  { id: "hero", label: "Giới thiệu" },
+  { id: "resume", label: "Hồ sơ" },
+  { id: "labeille-global", label: "L'Abeille Global" },
+  { id: "comem-lab", label: "Cỏ mềm" },
+  { id: "viet-education", label: "Vietis Education" },
+  { id: "social-media-posts-1", label: "Social Media Posts" },
+  { id: "kidulties", label: "Kidulties" },
+  { id: "nungning-garden", label: "Nungning Garden" },
+  { id: "others", label: "Others" },
+  { id: "footer", label: "Footer" },
+] as const;
+
 const FloatNav = () => {
   const [activeSection, setActiveSection] = useState("hero");
-
-  const sections = [
-    { id: "hero", label: "Giới thiệu" },
-    { id: "resume", label: "Hồ sơ" },
-    { id: "labeille-global", label: "L'Abeille Global" },
-    { id: "comem-lab", label: "Cỏ mềm" },
-    { id: "viet-education", label: "Vietis Education" },
-    { id: "social-media-posts-1", label: "Social Media Posts" },
-    { id: "kidulties", label: "Kidulties" },
-    { id: "nungning-garden", label: "Nungning Garden" },
-    { id: "others", label: "Others" },
-    { id: "footer", label: "Footer" },
-  ];
 
   const [isActive, setIsActive] = useState(false);
 

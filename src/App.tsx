@@ -4,6 +4,7 @@ import ContactPage from "./pages/ContactPage";
 import HomePage from "./pages/HomePage";
 import ResumePage from "./pages/ResumePage";
 import WorksPage from "./pages/WorksPage";
+import WorksDetailPage from "./pages/WorksDetailPage";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/resume" element={<ResumePage />} />
         <Route path="/works" element={<WorksPage />} />
+        <Route path="/works/:id" element={<WorksDetailPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

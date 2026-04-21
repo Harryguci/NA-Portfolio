@@ -4,8 +4,22 @@
   flex-direction: column;
   min-height: 100dvh;
   align-items: center;
-  overflow-x: hidden; // Prevent horizontal scroll from floating hearts
 
+  &__sticky-header {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+  }
+
+  &__content-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: clip;
+    position: relative;
+  }
   &__background-layer {
     position: fixed;
     top: 0;
@@ -19,6 +33,7 @@
       #f6cde6 97.75%
     ); // Specified gradient
   }
+
 
   &__hearts-layer {
     position: absolute;
@@ -37,8 +52,8 @@
 
     &--top-left {
       top: 5%;
-      left: 2%;
-      width: 180px;
+      left: 12%;
+      width: 250px;
       height: auto;
       animation-delay: 0s;
     }

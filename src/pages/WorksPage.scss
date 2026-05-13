@@ -33,7 +33,7 @@
 
     .window-header {
       background-color: #fbcceb;
-      border-bottom: 2.5px solid #4a3728;
+      border-bottom: none;
 
       &__title {
         color: #4a3728;
@@ -223,17 +223,17 @@
   }
 
   .folder-bar-container {
-    height: var(--folder-bar-height-base);
+    height: calc(var(--folder-bar-height-base));
   }
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1400px) {
   .folder-stack {
     transform: translateY(-10%) scale(1.5);
   }
 
   .folder-bar-container {
-    height: var(--folder-bar-height-base);
+    height: calc(var(--folder-bar-height-base) - 15px);
   }
 }
 
@@ -242,6 +242,6 @@
     transform: translateY(-10%) scale(1.5);
   }
   .folder-bar-container {
-    height: calc(var(--folder-bar-height-base) * 0.7);
+    height: calc(var(--folder-bar-height-base) * 0.5);
   }
 }

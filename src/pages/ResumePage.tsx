@@ -2,7 +2,6 @@ import CommonButton from "../components/CommonButton";
 import WindowHeader from "../components/WindowHeader";
 import resumeMainContent from "../assets/resume_main_content_no_bg.png";
 import heartIcon from "../assets/heart.png";
-import bgBottomResumeImage from "../assets/Rectangle_bottom_resume.png";
 import "./ResumePage.scss";
 
 const ResumePage = () => {
@@ -40,7 +39,6 @@ const ResumePage = () => {
         <div
           className="resume-page__actions"
           style={{
-            backgroundImage: `url(${bgBottomResumeImage})`,
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",

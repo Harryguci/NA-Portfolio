@@ -3,7 +3,6 @@
 .works-detail {
   position: relative;
   min-height: 100dvh;
-  overflow-x: clip;
   background: #fff;
   color: #5a4635;
 }
@@ -17,6 +16,9 @@
 }
 
 .works-detail__topbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -88,11 +90,51 @@
 }
 
 .works-detail__content {
+  overflow-x: clip;
   width: min(1180px, calc(100% - 1rem));
-  margin: 0 auto;
+  margin: 2rem auto;
   padding: 0.75rem 0 2rem;
   display: grid;
-  gap: 1.1rem;
+  gap: 2rem;
+}
+
+.works-detail__below-fold {
+  position: relative;
+  z-index: 0;
+  display: grid;
+  gap: inherit;
+  min-height: 0;
+}
+
+.works-detail__below-fold--framed {
+  gap: inherit;
+}
+
+.works-detail__hero-region {
+  position: relative;
+  z-index: 65;
+  min-height: 0;
+}
+
+.works-detail__hero-region .works-detail__hero-art {
+  z-index: 0;
+}
+
+.works-detail__unknown {
+  margin: 2rem auto;
+  max-width: 28rem;
+  padding: 1rem 1.25rem;
+  text-align: center;
+  font-family: "Nunito", system-ui, sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #5a4635;
+
+  a {
+    color: #2f7ad0;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
 }
 
 .works-detail__hero-pill {
@@ -113,6 +155,8 @@
 }
 
 .works-detail__hero-art {
+  position: relative;
+  z-index: 65;
   margin: 0;
   border: none;
   border-radius: none;
@@ -172,6 +216,35 @@
 
 .works-detail--posm .works-detail__content {
   width: min(1120px, calc(100% - 0.7rem));
+}
+
+.works-detail__frame-reveal {
+  opacity: 0;
+  transform: translateY(1.25rem);
+  /* Hide (scroll up): snappy, no stagger delay */
+  transition:
+    opacity 0.45s cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    transform 0.45s cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+
+.works-detail__frame-reveal--visible {
+  opacity: 1;
+  transform: translateY(0);
+  /* Enter (scroll down): original ease + stagger */
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1)
+      calc(0.5s + var(--works-detail-reveal-delay, 0ms)),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1)
+      calc(0.5s + var(--works-detail-reveal-delay, 0ms));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .works-detail__frame-reveal,
+  .works-detail__frame-reveal--visible {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 
 @media (max-width: 720px) {

@@ -1,0 +1,122 @@
+.work-section-frame {
+  --wsf-border: #7eb8e8;
+  --wsf-pill-border: #2f7ad0;
+  --wsf-pill-text: #2f7ad0;
+  --wsf-pill-bg: #fff;
+  position: relative;
+  margin-top: 2.25rem;
+  padding: 1.85rem 1.25rem 1.45rem;
+  border: 2px solid var(--wsf-border);
+  border-radius: 28px;
+  background: #fff;
+}
+
+.work-section-frame--ecom {
+  --wsf-border: #7eb8e8;
+  --wsf-pill-border: #2f7ad0;
+  --wsf-pill-text: #2f7ad0;
+}
+
+.work-section-frame--social {
+  --wsf-border: #7dccb0;
+  --wsf-pill-border: #1f8a6a;
+  --wsf-pill-text: #1f8a6a;
+}
+
+.work-section-frame--landing {
+  --wsf-border: #e6c84a;
+  --wsf-pill-border: #b8860b;
+  --wsf-pill-text: #8a6914;
+}
+
+.work-section-frame__pill {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  z-index: 2;
+  transform: translate(-50%, -50%);
+  width: max-content;
+  margin: 0;
+  padding: 0.55rem 1.25rem 0.5rem;
+  border: 2px solid var(--wsf-pill-border);
+  border-radius: 999px;
+  background: var(--wsf-pill-bg);
+  color: var(--wsf-pill-text);
+  font-family: "SVN Retron 2000", sans-serif;
+  font-size: 2.5rem;
+  line-height: 1.2;
+  text-align: center;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.work-section-frame__pill-text {
+  display: inline-block;
+  transform: translateY(-6px);
+}
+
+.work-section-frame__body {
+  position: relative;
+  z-index: 0;
+  min-height: 0;
+}
+
+.work-section-frame__body > img,
+.work-section-frame__body picture img,
+.work-section-frame__grid img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 1.5rem 0 0 0;
+}
+
+.work-section-frame__grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+  padding: 2rem;
+}
+
+.work-section-frame__grid--2 {
+  grid-template-columns: 1fr 1fr;
+}
+
+.work-section-frame__placeholder {
+  min-height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  border-radius: 18px;
+  border: 1px dashed color-mix(in srgb, var(--wsf-border) 65%, #999);
+  background: color-mix(in srgb, var(--wsf-border) 8%, #fff);
+  color: #5a4635;
+  font-family: "Nunito", system-ui, sans-serif;
+  font-size: 0.9rem;
+  text-align: center;
+  opacity: 0.85;
+}
+
+@media (max-width: 720px) {
+  .work-section-frame {
+    margin-top: 1.85rem;
+    padding: 1.55rem 0.8rem 1.1rem;
+    border-radius: 20px;
+  }
+
+  .work-section-frame__pill {
+    padding: 0.45rem 0.85rem 0.42rem;
+    max-width: calc(100% - 1rem);
+    font-size: 0.68rem;
+  }
+
+  .work-section-frame__body > img,
+  .work-section-frame__body picture img,
+  .work-section-frame__grid img {
+    border-radius: 14px;
+  }
+
+  .work-section-frame__grid--2 {
+    grid-template-columns: 1fr;
+  }
+}

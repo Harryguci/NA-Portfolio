@@ -1,5 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&family=Nunito:wght@400;500;700&display=swap");
 
+:root {
+  --folder-bar-height-base: 40px;
+}
+
 .works-page {
   position: relative;
   display: flex;
@@ -126,7 +130,7 @@
 
 .folder-bar-container {
   width: 100%;
-  height: 70px;
+  height: var(--folder-bar-height-base);
   display: block;
   text-decoration: none;
   transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -219,7 +223,7 @@
   }
 
   .folder-bar-container {
-    height: 70px;
+    height: var(--folder-bar-height-base);
   }
 }
 
@@ -229,7 +233,7 @@
   }
 
   .folder-bar-container {
-    height: 70px;
+    height: var(--folder-bar-height-base);
   }
 }
 
@@ -238,6 +242,6 @@
     transform: translateY(-10%) scale(1.5);
   }
   .folder-bar-container {
-    height: 40px;
+    height: calc(var(--folder-bar-height-base) * 0.7);
   }
 }

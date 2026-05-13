@@ -1,0 +1,218 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;700;800&display=swap");
+
+.works-detail {
+  position: relative;
+  min-height: 100dvh;
+  overflow-x: clip;
+  background: #fff;
+  color: #5a4635;
+}
+
+.works-detail__background {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: #fff;
+  pointer-events: none;
+}
+
+.works-detail__topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  width: 100%;
+  min-height: 52px;
+  padding: 0.7rem 2rem 0.8rem;
+  background: #f7e2ef;
+  color: #642626;
+  font-family: "SVN Retron 2000", sans-serif;
+  font-size: clamp(0.95rem, 1.15vw, 1.2rem);
+  line-height: 1;
+}
+
+.works-detail__topbar--ecom {
+  background: #d5ebff;
+  color: #642626;
+}
+
+.works-detail__topbar--social {
+  background: #e1fff2;
+  color: #642626;
+}
+
+.works-detail__topbar--posm {
+  background: #ffecfe;
+  color: #642626;
+}
+
+.works-detail__topbar--landing {
+  background: #fffbbf;
+  color: #642626;
+}
+
+.works-detail__topbar-back,
+.works-detail__topbar-nav a {
+  color: inherit;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  transition:
+    color 180ms ease,
+    transform 180ms ease,
+    text-shadow 180ms ease,
+    letter-spacing 180ms ease;
+}
+
+.works-detail__topbar-back:hover,
+.works-detail__topbar-back:focus-visible,
+.works-detail__topbar-nav a:hover,
+.works-detail__topbar-nav a:focus-visible {
+  color: #2f7ad0;
+  transform: translateY(-1px);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.75);
+  letter-spacing: 0.02em;
+}
+
+.works-detail__topbar-back:focus-visible,
+.works-detail__topbar-nav a:focus-visible {
+  outline: 2px solid rgba(47, 122, 208, 0.35);
+  outline-offset: 4px;
+  border-radius: 6px;
+}
+
+.works-detail__topbar-nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(1.5rem, 3vw, 3rem);
+}
+
+.works-detail__content {
+  width: min(1180px, calc(100% - 1rem));
+  margin: 0 auto;
+  padding: 0.75rem 0 2rem;
+  display: grid;
+  gap: 1.1rem;
+}
+
+.works-detail__hero-pill {
+  width: fit-content;
+  min-width: 240px;
+  margin: 0 auto -0.35rem;
+  padding: 0.55rem 1.5rem 0.5rem;
+  border: 3px solid #ff85c8;
+  border-radius: 999px;
+  background: #fff;
+  color: #ff85c8;
+  font-family: "SVN Retron 2000", sans-serif;
+  font-size: clamp(1rem, 1.4vw, 1.45rem);
+  line-height: 1;
+  text-align: center;
+  letter-spacing: 0.03em;
+  box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.6);
+}
+
+.works-detail__hero-art {
+  margin: 0;
+  border: none;
+  border-radius: none;
+  overflow: hidden;
+  background: #fff;
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+}
+
+.works-detail__panel {
+  margin-top: 50px;
+  display: grid;
+  gap: 0.8rem;
+  width: 100%;
+  position: relative;
+}
+
+.works-detail__section-title-image {
+  display: block;
+  width: 225px;
+  margin: 0 auto;
+  position: absolute;
+  left: 50%;
+  z-index: 1000;
+  transform: translate(-50%, -50%);
+}
+
+.works-detail__frame {
+  position: relative;
+  padding: 1.25rem 1.25rem 1.45rem;
+  border: 2px solid #ff8fcb;
+  border-radius: 28px;
+  background: #fff;
+}
+
+.works-detail__iframe-stack {
+  display: grid;
+  gap: 1rem;
+}
+
+.works-detail__iframe {
+  display: block;
+  width: 100%;
+  height: 90vh;
+  border: 1px solid #d9d9d9;
+  border-radius: 18px;
+  background: #fff;
+}
+
+.works-detail__frame--empty {
+  min-height: 420px;
+}
+
+.works-detail--posm .works-detail__content {
+  width: min(1120px, calc(100% - 0.7rem));
+}
+
+@media (max-width: 720px) {
+  .works-detail__topbar {
+    min-height: 44px;
+    padding: 0.55rem 0.7rem 0.6rem;
+    gap: 0.5rem;
+    font-size: 0.72rem;
+  }
+
+  .works-detail__topbar-nav {
+    gap: 0.9rem;
+  }
+
+  .works-detail__content {
+    width: min(100%, calc(100% - 0.5rem));
+    padding-top: 0.5rem;
+    gap: 0.85rem;
+  }
+
+  .works-detail__hero-pill {
+    min-width: 200px;
+    padding: 0.45rem 1rem 0.4rem;
+    font-size: 0.95rem;
+  }
+
+  .works-detail__hero-art,
+  .works-detail__frame {
+    border-radius: 20px;
+  }
+
+  .works-detail__frame {
+    padding: 0.8rem;
+  }
+
+  .works-detail__iframe {
+    height: 320px;
+    border-radius: 14px;
+  }
+
+  .works-detail__frame--empty {
+    min-height: 280px;
+  }
+}

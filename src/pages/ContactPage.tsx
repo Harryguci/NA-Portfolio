@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import type { FormEvent, ReactElement } from "react";
+import { Link, useLocation } from "react-router-dom";
 import {
   motion,
   useInView,
@@ -11,6 +12,63 @@ import typoContact from "../assets/typo_contact.png";
 import "./ContactPage.scss";
 
 const BEHANCE_URL = "https://www.behance.net/phanthngcanh";
+
+const GOOGLE_FORM_ACTION =
+  "https://docs.google.com/forms/d/e/1FAIpQLScOMBb_mkZH0RRDmjkhJBPgg5RYDbt941RkwvG0AkiWQv-mjA/formResponse";
+
+const GOOGLE_FORM_VIEW =
+  "https://docs.google.com/forms/d/e/1FAIpQLScOMBb_mkZH0RRDmjkhJBPgg5RYDbt941RkwvG0AkiWQv-mjA/viewform";
+
+const GOOGLE_FORM_ENTRIES = {
+  name: "entry.2005620554",
+  message: "entry.839337160",
+} as const;
+
+const parseFbzx = (html: string) =>
+  html.match(/name="fbzx" value="(-?\d+)"/)?.[1] ?? "";
+
+const fetchFbzx = async () => {
+  try {
+    const html = await fetch(GOOGLE_FORM_VIEW).then((response) => response.text());
+    return parseFbzx(html);
+  } catch {
+    return "";
+  }
+};
+
+const postToGoogleForm = (
+  trimmedName: string,
+  trimmedMessage: string,
+  fbzx: string,
+) => {
+  const form = document.createElement("form");
+  form.method = "POST";
+  form.action = GOOGLE_FORM_ACTION;
+  form.acceptCharset = "UTF-8";
+
+  const fields: Record<string, string> = {
+    [GOOGLE_FORM_ENTRIES.name]: trimmedName,
+    [GOOGLE_FORM_ENTRIES.message]: trimmedMessage,
+    fvv: "1",
+    pageHistory: "0",
+  };
+
+  if (fbzx) {
+    fields.fbzx = fbzx;
+    fields.partialResponse = `[null,null,"${fbzx}"]`;
+  }
+
+  for (const [fieldName, fieldValue] of Object.entries(fields)) {
+    const input = document.createElement("input");
+    input.type = "hidden";
+    input.name = fieldName;
+    input.value = fieldValue;
+    form.appendChild(input);
+  }
+
+  document.body.appendChild(form);
+  form.submit();
+};
 
 const CONTACT_INFO = [
   {
@@ -35,8 +93,6 @@ const CONTACT_INFO = [
     isExternal: true,
   },
 ] as const;
-
-type SubmitStatus = "idle" | "submitting" | "success";
 
 const windowVariants: Variants = {
   hidden: { opacity: 0, scale: 0.94, y: 24 },
@@ -63,6 +119,28 @@ const staggerItem: Variants = {
     transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
   },
 };
+
+const backHomeVariants: Variants = {
+  hidden: { opacity: 0, x: -20, scale: 0.88 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    scale: 1,
+    transition: { type: "spring", stiffness: 300, damping: 22, delay: 0.4 },
+  },
+};
+
+const IconArrowLeft = () => (
+  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+    <path
+      d="M11 4L6 9L11 14"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
 
 const IconEnvelope = () => (
   <svg width="26" height="21" viewBox="0 0 22 18" fill="none" aria-hidden="true">
@@ -113,34 +191,37 @@ const infoIcons: Record<string, () => ReactElement> = {
 };
 
 const ContactPage = () => {
+  const { pathname } = useLocation();
+  const isStandaloneRoute = pathname === "/contact";
   const prefersReducedMotion = useReducedMotion();
   const windowRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(windowRef, { once: true, amount: 0.2 });
 
-  const [name, setName] = useState("");
-  const [message, setMessage] = useState("");
-  const [status, setStatus] = useState<SubmitStatus>("idle");
   const [error, setError] = useState("");
+  const [fbzx, setFbzx] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const isAnimated = isInView || prefersReducedMotion;
   const motionState = isAnimated ? "visible" : "hidden";
 
   useEffect(() => {
-    if (status !== "success") return;
-    const timer = window.setTimeout(() => {
-      setName("");
-      setMessage("");
-      setStatus("idle");
-    }, 2500);
-    return () => window.clearTimeout(timer);
-  }, [status]);
+    fetchFbzx().then(setFbzx);
+  }, []);
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (status === "submitting") return;
+    if (isSubmitting) return;
 
-    const trimmedName = name.trim();
-    const trimmedMessage = message.trim();
+    const form = e.currentTarget;
+    const nameInput = form.elements.namedItem(
+      GOOGLE_FORM_ENTRIES.name,
+    ) as HTMLInputElement | null;
+    const messageInput = form.elements.namedItem(
+      GOOGLE_FORM_ENTRIES.message,
+    ) as HTMLTextAreaElement | null;
+
+    const trimmedName = nameInput?.value.trim() ?? "";
+    const trimmedMessage = messageInput?.value.trim() ?? "";
 
     if (!trimmedName || !trimmedMessage) {
       setError("Please fill in your name and message.");
@@ -148,22 +229,43 @@ const ContactPage = () => {
     }
 
     setError("");
-    setStatus("submitting");
+    setIsSubmitting(true);
 
-    window.setTimeout(() => {
-      setStatus("success");
-    }, 900);
+    const token = fbzx || (await fetchFbzx());
+    window.alert(`Message sent! Thank you, ${trimmedName}.`);
+    postToGoogleForm(trimmedName, trimmedMessage, token);
   };
-
-  const sendLabel =
-    status === "submitting"
-      ? "Sending..."
-      : status === "success"
-        ? "Sent!"
-        : "Send";
 
   return (
     <main className="contact-page">
+      {isStandaloneRoute && (
+        <motion.div
+          className="contact-page__back-home-wrap"
+          variants={prefersReducedMotion ? undefined : backHomeVariants}
+          initial={prefersReducedMotion ? false : "hidden"}
+          animate={prefersReducedMotion ? undefined : "visible"}
+        >
+          <motion.div
+            className="contact-page__back-home-float"
+            animate={
+              prefersReducedMotion
+                ? undefined
+                : { y: [0, -5, 0] }
+            }
+            transition={
+              prefersReducedMotion
+                ? undefined
+                : { duration: 3.2, repeat: Infinity, ease: "easeInOut" }
+            }
+          >
+            <Link to="/" className="contact-page__back-home">
+              <IconArrowLeft />
+              <span>Back home</span>
+            </Link>
+          </motion.div>
+        </motion.div>
+      )}
+
       <motion.div
         className="contact-page__background"
         style={{ backgroundImage: `url(${backgroundContact})` }}
@@ -248,91 +350,70 @@ const ContactPage = () => {
               })}
             </motion.div>
 
-            <motion.form
+            <motion.div
               className="contact-page__form"
-              onSubmit={handleSubmit}
-              noValidate
               variants={prefersReducedMotion ? undefined : staggerItem}
             >
-              <motion.div
-                className="contact-page__field"
-                variants={prefersReducedMotion ? undefined : staggerItem}
+              <form
+                className="contact-page__form-inner"
+                onSubmit={handleSubmit}
+                noValidate
               >
-                <label className="contact-page__label" htmlFor="contact-name">
-                  Name
-                </label>
-                <input
-                  id="contact-name"
-                  className="contact-page__input"
-                  type="text"
-                  name="name"
-                  placeholder="Name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  disabled={status === "submitting"}
-                  autoComplete="name"
-                />
-              </motion.div>
+                <div className="contact-page__field">
+                  <label className="contact-page__label" htmlFor="contact-name">
+                    Name
+                  </label>
+                  <input
+                    id="contact-name"
+                    className="contact-page__input"
+                    type="text"
+                    name={GOOGLE_FORM_ENTRIES.name}
+                    placeholder="Name"
+                    defaultValue=""
+                    onInput={() => setError("")}
+                    autoComplete="name"
+                    required
+                  />
+                </div>
 
-              <motion.div
-                className="contact-page__field"
-                variants={prefersReducedMotion ? undefined : staggerItem}
-              >
-                <label
-                  className="contact-page__label"
-                  htmlFor="contact-message"
-                >
-                  Message
-                </label>
-                <textarea
-                  id="contact-message"
-                  className="contact-page__textarea"
-                  name="message"
-                  placeholder="Leave me a message...."
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                  disabled={status === "submitting"}
-                  rows={3}
-                />
-              </motion.div>
+                <div className="contact-page__field">
+                  <label
+                    className="contact-page__label"
+                    htmlFor="contact-message"
+                  >
+                    Message
+                  </label>
+                  <textarea
+                    id="contact-message"
+                    className="contact-page__textarea"
+                    name={GOOGLE_FORM_ENTRIES.message}
+                    placeholder="Leave me a message...."
+                    defaultValue=""
+                    onInput={() => setError("")}
+                    rows={3}
+                    required
+                  />
+                </div>
 
-              <motion.div
-                className="contact-page__form-actions"
-                variants={prefersReducedMotion ? undefined : staggerItem}
-              >
-                {error && (
-                  <p className="contact-page__error-msg" role="alert">
-                    {error}
-                  </p>
-                )}
-                {status === "success" && (
-                  <p className="contact-page__success-msg" role="status">
-                    Message sent! Thank you for reaching out.
-                  </p>
-                )}
-                <motion.button
-                  type="submit"
-                  className={`contact-page__send${status === "success" ? " contact-page__send--success" : ""}`}
-                  disabled={status === "submitting"}
-                  whileHover={
-                    prefersReducedMotion || status === "submitting"
-                      ? undefined
-                      : { scale: 1.04 }
-                  }
-                  whileTap={
-                    prefersReducedMotion || status === "submitting"
-                      ? undefined
-                      : { scale: 0.96 }
-                  }
-                  transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                <motion.div
+                  className="contact-page__form-actions"
+                  variants={prefersReducedMotion ? undefined : staggerItem}
                 >
-                  {status === "submitting" && (
-                    <span className="contact-page__spinner" aria-hidden="true" />
+                  {error && (
+                    <p className="contact-page__error-msg" role="alert">
+                      {error}
+                    </p>
                   )}
-                  {sendLabel}
-                </motion.button>
-              </motion.div>
-            </motion.form>
+                  <button
+                    type="submit"
+                    className="contact-page__send"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? "Sending..." : "Send"}
+                  </button>
+                </motion.div>
+              </form>
+            </motion.div>
           </motion.div>
         </div>
       </motion.div>

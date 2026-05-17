@@ -37,6 +37,7 @@ function RevealingFramedSection({
 const WorksDetailPage = () => {
   const { id } = useParams();
   const isPosm = id === "posm";
+  const isLanding = id === "landing";
   const framedSections = getFramedWorkDetailSections(id);
   const useFramedLayout =
     framedSections != null && framedSections.length > 0;
@@ -53,7 +54,9 @@ const WorksDetailPage = () => {
   const restFramed = framedSections?.slice(1) ?? [];
 
   return (
-    <main className={`works-detail ${isPosm ? "works-detail--posm" : ""}`}>
+    <main
+      className={`works-detail ${isPosm ? "works-detail--posm" : ""} ${isLanding ? "works-detail--landing" : ""}`}
+    >
       <div className="works-detail__background" />
 
       <header className={`works-detail__topbar ${topbarTheme}`}>

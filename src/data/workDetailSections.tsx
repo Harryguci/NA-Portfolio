@@ -5,15 +5,21 @@ import lamyVn1 from "../assets/lamy.png";
 import catarinaDiamondLysStore from '../assets/caterina.png';
 import dantonVietnam from '../assets/danton.png';
 
-import landingPage1 from "../assets/landing_main1.png";
+import landingPageDanton from "../assets/landing_page_danton1.png";
+import landingPageVietis from "../assets/landing_page_vietis1.png";
 import kbrand from "../assets/kbrands.png";
 import vietis from '../assets/vietis.png';
-import workLandingLg from "../assets/work_landingpage_lg.png";
 import tickideng from '../assets/tickideng.png';
 import labei from '../assets/labei.png';
 import fandb from '../assets/f&b.png';
 import posmHashtag from "../assets/posm_hastag.png";
 import posmStoreDecor from "../assets/posm_store_decor.png";
+import LandingMotionGrid from "../components/landing/LandingMotionGrid";
+import LandingProjectRow from "../components/landing/LandingProjectRow";
+import {
+  LANDING_MOTION_VIDEOS,
+  LANDING_PROJECT_LINKS,
+} from "./landingDetailData";
 
 export type FramedWorkId = "ecommerce" | "socialads" | "landing" | "posm";
 
@@ -78,18 +84,32 @@ const ecommerceSections: WorkDetailSectionSpec[] = [
 
 const landingSections: WorkDetailSectionSpec[] = [
   {
-    title: "Overview",
+    title: "LANDING PAGE",
     tone: "landing",
     body: (
-      <picture>
-        <source media="(min-width: 1000px)" srcSet={workLandingLg} />
-        <img
-          src={landingPage1}
-          alt="Landing page design samples"
-          loading="eager"
+      <div className="landing-detail__projects">
+        <LandingProjectRow
+          title="DANTON BIOTIN"
+          image={landingPageDanton}
+          imageAlt="Danton Biotin landing page — laptop and mobile mockups"
+          href={LANDING_PROJECT_LINKS.danton || undefined}
+          revealDelayMs={0}
         />
-      </picture>
+        <LandingProjectRow
+          title="VIETIS EDU"
+          image={landingPageVietis}
+          imageAlt="Vietis Education landing page — laptop mockup"
+          href={LANDING_PROJECT_LINKS.vietis || undefined}
+          reverse
+          revealDelayMs={120}
+        />
+      </div>
     ),
+  },
+  {
+    title: "MOTION",
+    tone: "landing",
+    body: <LandingMotionGrid videos={LANDING_MOTION_VIDEOS} />,
   },
 ];
 

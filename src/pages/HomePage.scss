@@ -1,3 +1,4 @@
+$xs: 400px;
 $sm: 640px;
 $md: 768px;
 $lg: 1024px;
@@ -117,17 +118,33 @@ $xl: 1280px;
 
     @media (max-width: $md) {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       align-items: end;
       justify-items: center;
-      gap: clamp(0.25rem, 1.5vw, 0.65rem);
-      width: min(92%, 16.5rem);
-      padding-inline: 0.25rem;
+      gap: clamp(0.75rem, 4vw, 1.5rem);
+      width: min(100%, 26rem);
+      padding-inline: clamp(0.75rem, 4vw, 1.5rem);
+
+      // 3rd button wraps to its own row, centered
+      .home-menu-link:last-child:nth-child(odd) {
+        grid-column: 1 / -1;
+      }
     }
 
     @media (max-width: $sm) {
-      width: min(94%, 14.5rem);
-      gap: 0.3rem;
+      grid-template-columns: 1fr;
+      width: min(100%, 16rem);
+      gap: clamp(0.65rem, 3vw, 1rem);
+
+      .home-menu-link:last-child:nth-child(odd) {
+        grid-column: auto;
+      }
+    }
+
+    @media (max-width: $xs) {
+      width: min(100%, 14rem);
+      gap: 0.5rem;
+      padding-inline: 0.5rem;
     }
 
     @media (min-width: $md) and (max-width: #{$xl - 1px}) {
@@ -141,8 +158,16 @@ $xl: 1280px;
 
     .home-menu-link {
       @media (max-width: $md) {
-        max-width: none;
         width: 100%;
+        max-width: clamp(9.5rem, 42vw, 12.5rem);
+      }
+
+      @media (max-width: $sm) {
+        max-width: clamp(10.5rem, 72vw, 14rem);
+      }
+
+      @media (max-width: $xs) {
+        max-width: clamp(8.5rem, 58vw, 11rem);
       }
     }
   }

@@ -17,6 +17,68 @@ $contact-btn-to: #93c5fd;
   padding: 1.5rem clamp(1rem, 3vw, 2.5rem);
   overflow-x: clip;
 
+  &__back-home-wrap {
+    position: fixed;
+    top: clamp(1rem, 3vw, 1.75rem);
+    left: clamp(1rem, 3vw, 1.75rem);
+    z-index: 20;
+  }
+
+  &__back-home-float {
+    display: inline-flex;
+  }
+
+  &__back-home {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.65rem 1.15rem 0.65rem 0.9rem;
+    font-family: "Nunito", sans-serif;
+    font-size: clamp(0.9rem, 1.2vw, 1rem);
+    font-weight: 600;
+    color: $contact-text;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.92);
+    border: 2px solid $contact-pink-header;
+    border-radius: 9999px;
+    box-shadow:
+      0 4px 18px rgba(15, 76, 129, 0.14),
+      0 0 0 1px rgba(255, 255, 255, 0.6) inset;
+    backdrop-filter: blur(8px);
+    transition:
+      transform 0.25s ease,
+      box-shadow 0.25s ease,
+      border-color 0.25s ease,
+      background-color 0.25s ease;
+
+    svg {
+      flex-shrink: 0;
+      color: $contact-btn-from;
+      transition: transform 0.25s ease;
+    }
+
+    &:hover {
+      background: #ffffff;
+      border-color: $contact-pixel-blue;
+      box-shadow:
+        0 8px 24px rgba(96, 165, 250, 0.28),
+        0 0 0 1px rgba(255, 255, 255, 0.8) inset;
+      transform: translateY(-2px);
+
+      svg {
+        transform: translateX(-3px);
+      }
+    }
+
+    &:focus-visible {
+      outline: none;
+      border-color: $contact-pixel-blue;
+      box-shadow:
+        0 0 0 3px rgba(135, 206, 250, 0.45),
+        0 4px 18px rgba(15, 76, 129, 0.14);
+    }
+  }
+
   &__background {
     position: fixed;
     inset: 0;
@@ -170,6 +232,12 @@ $contact-btn-to: #93c5fd;
   }
 
   &__form {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(0.85rem, 1.5vw, 1.15rem);
+  }
+
+  &__form-inner {
     display: flex;
     flex-direction: column;
     gap: clamp(0.85rem, 1.5vw, 1.15rem);
@@ -370,7 +438,8 @@ $contact-btn-to: #93c5fd;
   }
 
   .contact-page__info-row,
-  .contact-page__send {
+  .contact-page__send,
+  .contact-page__back-home {
     transition: none;
   }
 }

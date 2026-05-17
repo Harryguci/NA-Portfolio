@@ -218,6 +218,15 @@
   width: min(1120px, calc(100% - 0.7rem));
 }
 
+.works-detail--landing .works-detail__content {
+  width: min(1120px, calc(100% - 0.7rem));
+}
+
+.works-detail--landing .work-section-frame__body > img,
+.works-detail--landing .work-section-frame__body picture img {
+  margin-top: 0;
+}
+
 .works-detail__frame-reveal {
   opacity: 0;
   transform: translateY(1.25rem);

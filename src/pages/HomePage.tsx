@@ -51,17 +51,19 @@ const HomePage = () => {
     <div className="home-scroll-container">
       <main className="home-page section" id="home">
         <section className="home-page__hero">
-          <video
-            className="home-page__hero-video"
-            autoPlay
-            muted
-            playsInline
-            loop
-            preload="auto"
-            aria-label="Home intro background video"
-          >
-            <source src={homeHeroVideo} type="video/mp4" />
-          </video>
+          <div className="home-page__hero-media" aria-hidden="true">
+            <video
+              className="home-page__hero-video"
+              autoPlay
+              muted
+              playsInline
+              loop
+              preload="auto"
+              aria-label="Home intro background video"
+            >
+              <source src={homeHeroVideo} type="video/mp4" />
+            </video>
+          </div>
           <div className="home-page__hero-overlay" />
         </section>
 

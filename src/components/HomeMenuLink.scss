@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  max-width: 280px;
+  max-width: clamp(140px, 22vw, 280px);
   width: 100%;
 
   &__anchor {
@@ -16,7 +16,10 @@
     height: auto;
     object-fit: contain;
     display: block;
-    // Premium feel with a subtle drop shadow
     filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.2));
+
+    @media (max-width: 768px) {
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.18));
+    }
   }
 }

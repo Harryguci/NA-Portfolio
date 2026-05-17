@@ -1,7 +1,7 @@
 import { useId, type ReactNode } from "react";
 import "./WorkSectionFrame.scss";
 
-export type WorkSectionFrameTone = "ecom" | "social" | "landing";
+export type WorkSectionFrameTone = "ecom" | "social" | "landing" | "posm";
 
 export interface WorkSectionFrameProps {
   title: string;
@@ -22,7 +22,9 @@ const WorkSectionFrame = ({
       ? "work-section-frame--social"
       : tone === "landing"
         ? "work-section-frame--landing"
-        : "work-section-frame--ecom";
+        : tone === "posm"
+          ? "work-section-frame--posm"
+          : "work-section-frame--ecom";
 
   return (
     <section

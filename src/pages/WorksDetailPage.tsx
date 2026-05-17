@@ -1,8 +1,5 @@
 import type { CSSProperties } from "react";
 import { Link, useParams } from "react-router-dom";
-import posmIntro from "../assets/posm_section1.png";
-import menuTitle from "../assets/menu_item.png";
-import profileTitle from "../assets/profile_item.png";
 import WorkSectionFrame from "../components/WorkSectionFrame";
 import {
   getFramedWorkDetailSections,
@@ -42,9 +39,7 @@ const WorksDetailPage = () => {
   const isPosm = id === "posm";
   const framedSections = getFramedWorkDetailSections(id);
   const useFramedLayout =
-    !isPosm &&
-    framedSections != null &&
-    framedSections.length > 0;
+    framedSections != null && framedSections.length > 0;
 
   const topbarTheme =
     id === "ecommerce"
@@ -54,12 +49,6 @@ const WorksDetailPage = () => {
         : id === "posm"
           ? "works-detail__topbar--posm"
           : "works-detail__topbar--landing";
-  const heroTitle = isPosm
-    ? "POSM"
-    : id === "socialads"
-      ? "SOCIAL ADS"
-      : "DETAIL";
-
   const firstFramed = framedSections?.[0];
   const restFramed = framedSections?.slice(1) ?? [];
 
@@ -83,79 +72,7 @@ const WorksDetailPage = () => {
       </header>
 
       <section className="works-detail__content">
-        {isPosm ? (
-          <>
-            <div className="works-detail__hero-region">
-              <figure className="works-detail__hero-art">
-                <img
-                  src={posmIntro}
-                  alt={`${heroTitle} detail visual`}
-                  loading="eager"
-                />
-              </figure>
-            </div>
-
-            <div className="works-detail__below-fold">
-              <section className="works-detail__panel">
-                <img
-                  src={menuTitle}
-                  alt="Menu"
-                  className="works-detail__section-title-image"
-                />
-
-                <div className="works-detail__frame">
-                  <div className="works-detail__iframe-stack">
-                    <iframe
-                      allowFullScreen
-                      allow="clipboard-write"
-                      scrolling="no"
-                      className="works-detail__iframe"
-                      title="Menu preview 1"
-                      src="https://heyzine.com/flip-book/d4e9eed543.html"
-                    />
-                    <iframe
-                      allowFullScreen
-                      allow="clipboard-write"
-                      scrolling="no"
-                      className="works-detail__iframe"
-                      title="Menu preview 2"
-                      src="https://heyzine.com/flip-book/ef934515a1.html"
-                    />
-                  </div>
-                </div>
-              </section>
-
-              <section className="works-detail__panel">
-                <img
-                  src={profileTitle}
-                  alt="Profile"
-                  className="works-detail__section-title-image"
-                />
-
-                <div className="works-detail__frame">
-                  <div className="works-detail__iframe-stack">
-                    <iframe
-                      allowFullScreen
-                      allow="clipboard-write"
-                      scrolling="no"
-                      className="works-detail__iframe"
-                      title="Profile preview 1"
-                      src="https://heyzine.com/flip-book/475479de27.html"
-                    />
-                    <iframe
-                      allowFullScreen
-                      allow="clipboard-write"
-                      scrolling="no"
-                      className="works-detail__iframe"
-                      title="Profile preview 2"
-                      src="https://heyzine.com/flip-book/6817b8a0f3.html"
-                    />
-                  </div>
-                </div>
-              </section>
-            </div>
-          </>
-        ) : useFramedLayout && firstFramed ? (
+        {useFramedLayout && firstFramed ? (
           <>
             <div className="works-detail__hero-region">
               <RevealingFramedSection
